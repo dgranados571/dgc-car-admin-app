@@ -14,6 +14,33 @@ export interface IListasCursos {
     diasPorVencer: number,
 }
 
-export interface FormRHHandle {
+export interface IFormRHHandle {
     funcionHandle1: () => any;
 }
+
+export interface IModalProps {
+    tipoModal: string;
+    modalSi: Function,
+    modalNo: Function,
+    propsModal: IPropsModalRegistra
+}
+
+export interface IPropsModalRegistra {
+    resultForm1: IPropsResultForm
+    resultForm2: IPropsResultForm
+    resultForm3: IListasCursos[]
+}
+
+export interface IPropsResultForm {
+    prop0?: string;
+    prop1?: string;
+    prop2?: string;
+    prop3?: string;
+    prop4?: string;
+    prop5?: string;
+    prop6?: string;
+    prop7?: string;
+    prop8?: string;
+}
+
+

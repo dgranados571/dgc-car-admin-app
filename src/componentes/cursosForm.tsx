@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
-import { IListasCursos } from '../models/IProps';
+import React, { forwardRef, useImperativeHandle, useState } from 'react'
+import { IFormRHHandle, IListasCursos } from '../models/IProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const CursosForm = () => {
+const CursosForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
+
+    useImperativeHandle(ref, () => ({
+        funcionHandle1() {
+            return validateForm()
+        }
+    }))
 
     const cursosRHList = [
         { value: 'INITIAL', label: 'Seleccione' },
@@ -81,6 +87,10 @@ const CursosForm = () => {
         }
     }
 
+    const validateForm = () => {
+        return cursosList
+    }
+
     return (
         <>
             <h4 >Información de los cursos realizados</h4>
@@ -134,10 +144,9 @@ const CursosForm = () => {
                                         <p className='p-label-form m-0'>Estado: </p>
                                         <p className='mx-2'> {cursoId.estado} - {cursoId.diasPorVencer} Dias </p>
                                         <button className='btn btn-link py-0' onClick={() => eliminaCurso(cursoId)}>
-                                        <FontAwesomeIcon className='icons-table' icon={faTrash} />
-                                    </button>
+                                            <FontAwesomeIcon className='icons-table' icon={faTrash} />
+                                        </button>
                                     </div>
-                                    
                                 </div>
                             )
                         })
@@ -148,4 +157,4 @@ const CursosForm = () => {
     )
 }
 
-export default CursosForm
+export default forwardRef(CursosForm)

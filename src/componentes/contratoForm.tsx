@@ -1,7 +1,15 @@
-import React, { useState } from 'react'
-import { IListasSelect } from '../models/IProps'
+import React, { forwardRef, useImperativeHandle, useState } from 'react'
+import { IFormRHHandle, IListasSelect } from '../models/IProps'
+import { set } from 'react-datepicker/dist/date_utils'
 
-const ContratoForm = () => {
+const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
+
+
+    useImperativeHandle(ref, () => ({
+        funcionHandle1() {
+            return validateForm()
+        }
+    }))
 
     const contratosCon = [
         { value: 'INITIAL', label: 'Seleccione' },
@@ -50,9 +58,9 @@ const ContratoForm = () => {
         { value: 'YOPAL', label: 'YOPAL' }
     ]
 
-    const [constratoCon, setContratoCon] = useState('');
-    const [zona, setZona] = useState('');
-    const [municipio, setMunicipio] = useState('');
+    const [constratoCon, setContratoCon] = useState('INITIAL');
+    const [zona, setZona] = useState('INITIAL');
+    const [municipio, setMunicipio] = useState('INITIAL');
     const [fechaInicio, setFechaInicio] = useState('');
     const [cargo, setCargo] = useState('');
     const [area, setArea] = useState('');
@@ -82,31 +90,31 @@ const ContratoForm = () => {
                 setContratoCon(contratoCon)
                 setZonasList(zonasRedSalud)
                 setMunicipiosList([])
-                setZona('')
-                setMunicipio('')                
+                setZona('INITIAL')
+                setMunicipio('INITIAL')
                 setDisableInputZona(false)
                 break;
             case 'SALUD_YOPAl':
                 setContratoCon(contratoCon)
                 setZonasList([])
                 setMunicipiosList(ciudadesOA)
-                setZona('')
-                setMunicipio('')                
+                setZona('INITIAL')
+                setMunicipio('INITIAL')
                 setDisableInputZona(true)
                 break;
             default:
                 setContratoCon('INITIAL')
                 setZonasList([])
                 setMunicipiosList([])
-                setZona('')
-                setMunicipio('')               
+                setZona('INITIAL')
+                setMunicipio('INITIAL')
                 setDisableInputZona(false)
                 break;
         }
     }
 
     const evaluateEventZonaContrato = (zona: string) => {
-        setMunicipio('')
+        setMunicipio('INITIAL')
         switch (zona) {
             case 'ZONA_CENTRO':
                 setMunicipiosList(ciudadesZC)
@@ -126,8 +134,55 @@ const ContratoForm = () => {
                 break;
             default:
                 setMunicipiosList([])
-                setZona('')
+                setZona('INITIAL')
                 break;
+        }
+    }
+
+    const validateForm = () => {
+        let formValidado = [];
+        setContratoConRef(false)
+        setZonaRef(false)
+        setMunicipioRef(false)
+        if (constratoCon === 'INITIAL') {
+            formValidado.push('constratoCon');
+            setContratoConRef(true)
+        } else if (constratoCon === 'RED_SALUD') {
+            if (zona === 'INITIAL') {
+                formValidado.push('zona');
+                setZonaRef(true)
+            } else {
+                if (municipio === 'INITIAL') {
+                    formValidado.push('municipio');
+                    setMunicipioRef(true)
+                }
+            }
+        } else if (constratoCon === 'SALUD_YOPAl') {
+            if (municipio === 'INITIAL') {
+                formValidado.push('municipio');
+                setMunicipioRef(true)
+            }
+        }
+        setFechaInicioRef(false)
+        if(fechaInicio.length === 0){
+            formValidado.push('fechaInicio');
+            setFechaInicioRef(true)
+        }
+        if (formValidado.length === 0) {
+            return {
+                prop0: constratoCon,
+                prop1: zona,
+                prop2: municipio,
+                prop3: fechaInicio,
+                prop4: cargo,
+                prop5: area,
+                prop6: sueldo,
+                prop7: auxTransporte,
+                prop8: bono,
+            }
+        } else {
+            formValidado.splice(0, formValidado.length)
+            return null
         }
     }
 
@@ -230,4 +285,4 @@ const ContratoForm = () => {
     )
 }
 
-export default ContratoForm
+export default forwardRef(ContratoForm)
