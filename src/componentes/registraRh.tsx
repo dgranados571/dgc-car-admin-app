@@ -14,16 +14,15 @@ const RegistraRh: React.FC<IZoneProps> = () => {
     const [cargando, setCargando] = useState(false)
     const [tipoModal, setTipoModal] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
-
-    const registraRhFormRef = useRef<IFormRHHandle>(null);
-    const contratoFormRef = useRef<IFormRHHandle>(null);
-    const cursosFormRef = useRef<IFormRHHandle>(null);
-
     const [propsModalForm, setPropsModalForm] = useState<IPropsModal>({
         resultForm1: {},
         resultForm2: {},
         resultForm3: []
     })
+
+    const registraRhFormRef = useRef<IFormRHHandle>(null);
+    const contratoFormRef = useRef<IFormRHHandle>(null);
+    const cursosFormRef = useRef<IFormRHHandle>(null);
 
     const registraRH = () => {
         let formValidado = [];
@@ -113,29 +112,11 @@ const RegistraRh: React.FC<IZoneProps> = () => {
                 tituloModal = '¡Registro exitoso del nuevo talento!'
                 resetForms()
             }
-            setPropsModalForm({
-                resultForm1: {
-                    prop0: tituloModal,
-                    prop1: response.mensaje,
-                },
-                resultForm2: {},
-                resultForm3: []
-            })
             setCargando(false)
-            setTipoModal('MODAL_CONTROL_1')
-            setModalOpen(true)
+            ejecutaModalComponent(tituloModal, response.mensaje, 'MODAL_CONTROL_1')
         } catch (error) {
-            setPropsModalForm({
-                resultForm1: {
-                    prop0: 'Valla algo salió mal¡¡',
-                    prop1: 'No fue posible el registro de la información, contacte al administrador',
-                },
-                resultForm2: {},
-                resultForm3: []
-            })
             setCargando(false)
-            setTipoModal('MODAL_CONTROL_1')
-            setModalOpen(true)
+            ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible el registro de la información, contacte al administrador', 'MODAL_CONTROL_1')
         }
     }
 
@@ -156,6 +137,19 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         setModalOpen(false)
     }
 
+    const ejecutaModalComponent = (titulo: string, descripicion:string, tipoModal:string)=>{
+        setPropsModalForm({
+            resultForm1: {
+                prop0: titulo,
+                prop1: descripicion,
+            },
+            resultForm2: {},
+            resultForm3: []
+        })            
+        setTipoModal(tipoModal)
+        setModalOpen(true)
+    }
+
     return (
         <>
             <div className='div-container'>
@@ -166,7 +160,7 @@ const RegistraRh: React.FC<IZoneProps> = () => {
                     <div className="col-12 col-sm-12 col-md-12 col-lg-4" >
                         <div className='div-menu-principal'>
                             <button className='btn btn-link a-link-custom-active' >Registrar RH</button>
-                            <button className='btn btn-link a-link-custom' onClick={() => navigate('/zona-trx')} >Gestionar RH</button>
+                            <button className='btn btn-link a-link-custom' onClick={() => navigate('/login-rh')} >Gestionar RH</button>
                         </div>
                     </div>
                 </div>
