@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { IFormRHHandle, IListasCursos } from '../models/IProps';
+import { IFormRHHandle, IListasCursos } from '../../models/IProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 

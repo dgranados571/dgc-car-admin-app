@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { IFormRHHandle, IListasSelect } from '../models/IProps'
+import { IFormRHHandle, IListasSelect } from '../../models/IProps'
 
 const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
 

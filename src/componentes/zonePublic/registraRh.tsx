@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { IContratoRHDto, ICursosRHDto, IFormRHHandle, IGenericResponse, IPropsModal, IRecursoHumanoDto, IZoneProps } from '../models/IProps'
+import { IContratoRHDto, ICursosRHDto, IFormRHHandle, IGenericResponse, IPropsModal, IRecursoHumanoDto, IZoneProps } from '../../models/IProps'
 import { useNavigate } from 'react-router-dom';
 import RegistraRhForm from './registraRhForm';
 import ContratoForm from './contratoForm';
 import CursosForm from './cursosForm';
-import Modal from './modal/modal';
-import { Cargando } from './loader/cargando';
-import { AuthServices } from '../services/authServices';
+import Modal from '../tvs/modal/modal';
+import { Cargando } from '../tvs/loader/cargando';
+import { AuthServices } from '../../services/authServices';
 
 const RegistraRh: React.FC<IZoneProps> = () => {
 

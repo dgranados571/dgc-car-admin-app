@@ -2,7 +2,7 @@ import React from 'react'
 import './modal.css'
 import { faCheckCircle, faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IListasCursos, IModalProps } from '../../models/IProps'
+import { IListasCursos, IModalProps } from '../../../models/IProps'
 
 
 const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal }) => {

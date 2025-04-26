@@ -1,0 +1,68 @@
+import React, { useEffect, useState } from 'react'
+import { IZoneProps } from '../../models/IProps';
+import ZoneRoot from '../zoneRoot/zoneRoot';
+import { Cargando } from '../tvs/loader/cargando';
+
+const ZonaTrX: React.FC<IZoneProps> = () => {
+
+    const [cargando, setCargando] = useState(false)
+
+    const [redirectZone, setRedirectZone] = useState('')
+
+    const [infoMenuUsuario, setInfoMenuUsuario] = useState({
+        usuario: '',
+        nombre_completo: '',
+        id_procesamiento: ''
+    })
+
+    useEffect(() => {
+        setCargando(true);
+        let usuarioLocalStorage = sessionStorage.getItem('usuarioApp');
+        if (!!usuarioLocalStorage) {
+            const usuarioLocalStorageObj = JSON.parse(usuarioLocalStorage)
+            setInfoMenuUsuario({
+                usuario: usuarioLocalStorageObj.usuario,
+                nombre_completo: usuarioLocalStorageObj.nombre + ' ' + usuarioLocalStorageObj.apellidos,
+                id_procesamiento: usuarioLocalStorageObj.id_procesamiento
+            })
+            setRedirectZone(usuarioLocalStorageObj.role)
+            setCargando(false);
+        } else {
+            setCargando(false);
+        }
+    }, [])
+
+    const validateRedirect = () => {
+        switch (redirectZone) {
+            case 'USUARIO_ROOT':
+                return (
+                    <ZoneRoot infoMenuUsuario={infoMenuUsuario} setCargando={setCargando} zonaConsulta='USUARIO_ROOT' />
+                )
+            case 'ROLE_ADMIN':
+                return (
+                    <>ZONA ADMINISTRATIVA</>
+                )
+            default:
+                return (
+                    <></>
+                )
+        }
+    }
+
+    return (
+        <>
+            {
+                validateRedirect()
+            }
+            {
+                cargando ?
+                    <Cargando />
+                    :
+                    <></>
+            }
+        </>
+
+    )
+}
+
+export default ZonaTrX

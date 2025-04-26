@@ -24,6 +24,37 @@ export const UtilUrl = () => {
       pathLambda: '/service/caradmin/activacionUsuarioApp',
       urlDominioServidor
     },
+    4: {
+      urlEntornoLocal,
+      urlEntornoLambda,
+      pathLambda: '/service/caradmin/getUsuariosApp',
+      urlDominioServidor
+    },
+    5: {
+      urlEntornoLocal,
+      urlEntornoLambda,
+      pathLambda: '/service/caradmin/registroUsuarioApp',
+      urlDominioServidor
+    },
+    6: {
+      urlEntornoLocal,
+      urlEntornoLambda,
+      pathLambda: '/service/caradmin/actualizaUsuarioApp',
+      urlDominioServidor
+    },
+    7: {
+      urlEntornoLocal,
+      urlEntornoLambda,
+      pathLambda: '/service/caradmin/actualizaContraseniaApp',
+      urlDominioServidor
+    },
+    8: {
+      urlEntornoLocal,
+      urlEntornoLambda,
+      pathLambda: '/service/caradmin/eliminaUsuarioApp',
+      urlDominioServidor
+    }
+
   }
 
   return {

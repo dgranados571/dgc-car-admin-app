@@ -1,8 +1,17 @@
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+
 export interface IZoneProps { }
 
 export interface IFormRHHandle {
     funcionHandle1: () => any;
     funcionHandle2: () => any;
+}
+
+export interface IMenuLateral {
+    nombreItem: string;
+    className: string;
+    iconMenu: IconDefinition
+    controlVista: string
 }
 
 export interface IListasSelect {
@@ -15,6 +24,43 @@ export interface IGenericResponse {
     mensaje: string,
     objeto: any
 }
+
+export interface IMenuLateralProps {
+    setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
+    selecionaMenu: Function,
+    menuLateral: IMenuLateral[],
+    openMenu: boolean,
+    infoMenuUsuario: IUsuarioSession
+}
+
+export interface IPaginacion {
+    paginas: any[],
+    totalPaginas: number,
+    paginaActual: number
+}
+
+export interface IPaginadorProps {
+    elementsPaginacion: any
+    setElementsPaginacion: React.Dispatch<React.SetStateAction<any>>;
+}
+
+export interface IZoneRootProps {
+    setCargando: React.Dispatch<React.SetStateAction<boolean>>;
+    infoMenuUsuario: IUsuarioSession,
+    zonaConsulta: string
+}
+
+export interface IUsuariosAppProps {
+    setCargando: React.Dispatch<React.SetStateAction<boolean>>;
+    zonaConsulta: string
+}
+
+export interface IUsuarioSession {
+    usuario: string;
+    nombre_completo: string;
+    id_procesamiento: string
+}
+
 
 export interface IListasCursos {
     idList: number

@@ -3,8 +3,8 @@ import './login.css'
 import { IGenericResponse, IPropsModal, IZoneProps, } from '../../models/IProps';
 import { useNavigate } from 'react-router-dom';
 import { AuthServices } from '../../services/authServices';
-import { Cargando } from '../loader/cargando';
-import Modal from '../modal/modal';
+import { Cargando } from '../tvs/loader/cargando';
+import Modal from '../tvs/modal/modal';
 
 const Login: React.FC<IZoneProps> = ({ }) => {
 
@@ -151,7 +151,7 @@ const Login: React.FC<IZoneProps> = ({ }) => {
             setCargando(false);
         } catch (error) {
             setCargando(false);
-            ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible el consultar de la información, contacte al administrador', 'MODAL_CONTROL_1')
+            ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible consultar la información, contacte al administrador', 'MODAL_CONTROL_1')
         }
     }
 
@@ -192,7 +192,7 @@ const Login: React.FC<IZoneProps> = ({ }) => {
                         <div className='div-login'>
                             <div className='div-login-elements'>
                                 <div className='div-elements-children' >
-                                    <p className=''>A travez de la zona transaccional podra hacer seguimiento y gestión a todos los recurso humano de la oganización:</p>
+                                    <p className=''>A travez de la zona transaccional podra hacer seguimiento y gestión a todos los recursos humano de la oganización:</p>
                                     <div className='div-inputs-login'>
                                         <p className='p-label-form-login'> Usuario </p>
                                         <input type="text" name='usuario' value={usuario} onChange={(e) => inputEvent(e)} className={usuarioRef ? 'form-control form-control-error' : 'form-control'} placeholder='' autoComplete='off' />
