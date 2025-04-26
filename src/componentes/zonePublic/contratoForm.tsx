@@ -69,6 +69,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [sueldo, setSueldo] = useState('');
     const [auxTransporte, setAuxTransporte] = useState('');
     const [bono, setBono] = useState('');
+    const [noContrato, setNoContrato] = useState('0');
 
     const [constratoConRef, setContratoConRef] = useState(false);
     const [zonaRef, setZonaRef] = useState(false);
@@ -79,6 +80,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [sueldoRef, setSueldoRef] = useState(false);
     const [auxTransporteRef, setAuxTransporteRef] = useState(false);
     const [bonoRef, setBonoRef] = useState(false);
+    const [noContratoRef, setNoContratoRef] = useState(false);
 
     const [zonasList, setZonasList] = useState<IListasSelect[]>([]);
     const [municipiosList, setMunicipiosList] = useState<IListasSelect[]>([]);
@@ -86,7 +88,6 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [disableInputZona, setDisableInputZona] = useState(false);
 
     const resetForm = () => {
-        
         setContratoCon('INITIAL');
         setZona('INITIAL');
         setMunicipio('INITIAL');
@@ -96,6 +97,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         setSueldo('');
         setAuxTransporte('');
         setBono('');
+        setNoContrato('0')
 
         setContratoConRef(false)
         setZonaRef(false)
@@ -106,11 +108,11 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         setSueldoRef(false)
         setAuxTransporteRef(false)
         setBonoRef(false)
+        setNoContratoRef(false)
 
         setZonasList([])
         setMunicipiosList([])
         setDisableInputZona(false)
-
     }
 
     const evaluateContratoCon = (contratoCon: string) => {
@@ -193,7 +195,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
             }
         }
         setFechaInicioRef(false)
-        if(fechaInicio.length === 0){
+        if (fechaInicio.length === 0) {
             formValidado.push('fechaInicio');
             setFechaInicioRef(true)
         }
@@ -202,6 +204,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         setSueldoRef(false)
         setAuxTransporteRef(false)
         setBonoRef(false)
+        setNoContratoRef(false)
         if (formValidado.length === 0) {
             return {
                 prop0: constratoCon,
@@ -213,6 +216,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 prop6: sueldo,
                 prop7: auxTransporte,
                 prop8: bono,
+                prop9: noContrato,
             }
         } else {
             formValidado.splice(0, formValidado.length)
@@ -288,14 +292,12 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                         <input type="text" value={cargo} onChange={(e) => setCargo(e.target.value)} className={cargoRef ? 'form-control form-control-error' : 'form-control'} />
                     </div>
                 </div>
-
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
                         <p className='p-label-form'>Area: </p>
                         <input type="text" value={area} onChange={(e) => setArea(e.target.value)} className={areaRef ? 'form-control form-control-error' : 'form-control'} />
                     </div>
                 </div>
-
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
                         <p className='p-label-form'>Sueldo: </p>
@@ -313,6 +315,16 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                         <p className='p-label-form'>Bono: </p>
                         <input type="text" value={bono} onChange={(e) => setBono(e.target.value)} className={bonoRef ? 'form-control form-control-error' : 'form-control'} />
                     </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                    <div className='div-form'>
+                        <p className='p-label-form'>No contrato: </p>
+                        <input type="text" value={noContrato} onChange={(e) => setNoContrato(e.target.value)} className={noContratoRef ? 'form-control form-control-error' : 'form-control'} />
+                    </div>
+                    <p>
+                        **Ingrese el número de contrato. Si deja el valor en 0, se asignará automáticamente el próximo número disponible. Si el número ingresado ya existe, 
+                        no podrá crear el contrato.**
+                    </p>
                 </div>
             </div>
         </>

@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
 import './zoneRoot.css'
-import { faHome, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { IMenuLateral, IZoneRootProps } from '../../models/IProps'
 import MenuLateralComponent from '../tvs/headerLateral/menuLateral'
-
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUsers, faBars, } from '@fortawesome/free-solid-svg-icons'
 import UsuariosApp from '../tvs_private/usuarios/usuariosApp'
-
 
 const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zonaConsulta }) => {
 

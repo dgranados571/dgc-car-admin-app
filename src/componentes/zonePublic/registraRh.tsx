@@ -10,7 +10,6 @@ import { AuthServices } from '../../services/authServices';
 
 const RegistraRh: React.FC<IZoneProps> = () => {
 
-    const navigate = useNavigate();
     const [cargando, setCargando] = useState(false)
     const [tipoModal, setTipoModal] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
@@ -27,8 +26,8 @@ const RegistraRh: React.FC<IZoneProps> = () => {
     const registraRH = () => {
         let formValidado = [];
         let resultForm1 = null;
-        let resultForm2 = null;
-        let resultForm3 = null;
+        // let resultForm2 = null;
+        // let resultForm3 = null;
         if (registraRhFormRef.current) {
             resultForm1 = registraRhFormRef.current.funcionHandle1()
             if (!resultForm1) {
@@ -37,6 +36,7 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         } else {
             formValidado.push('Errores en resultForm1');
         }
+        /*
         if (contratoFormRef.current) {
             resultForm2 = contratoFormRef.current.funcionHandle1()
             if (!resultForm2) {
@@ -53,11 +53,12 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         } else {
             formValidado.push('Errores en resultForm3');
         }
+        */
         if (formValidado.length === 0) {
             setPropsModalForm({
                 resultForm1,
-                resultForm2,
-                resultForm3
+                resultForm2: {},
+                resultForm3: []
             })
             setTipoModal('MODAL_RESUMEN_FORM')
             setModalOpen(true)
@@ -79,7 +80,7 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             correoCorporativo: propsModalForm.resultForm1.prop5 || '',
             perfilProfesional: propsModalForm.resultForm1.prop7 || '',
         }
-
+        /*
         const infoForm2: IContratoRHDto = {
             contrato: propsModalForm.resultForm2.prop0 || '',
             zonaContrato: propsModalForm.resultForm2.prop1 || '',
@@ -90,7 +91,8 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             area: propsModalForm.resultForm2.prop5 || '',
             sueldo: propsModalForm.resultForm2.prop6 || '',
             auxilioTransporte: propsModalForm.resultForm2.prop7 || '',
-            bono: propsModalForm.resultForm2.prop8 || ''
+            bono: propsModalForm.resultForm2.prop8 || '',
+            noContrato: propsModalForm.resultForm2.prop9 || ''
         }
 
         const infoForm3: ICursosRHDto[] = propsModalForm.resultForm3.map((curso) => ({
@@ -98,11 +100,12 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             fechaCurso: curso.fechaCertificacion,
             estado: curso.estado
         }));
-
+        
+        */
         const body = {
             "recursoHumano": infoForm1,
-            "contratoRH": infoForm2,
-            "cursosRH": infoForm3,
+            "contratoRH": {},
+            "cursosRH": [],
         }
         const authServices = new AuthServices();
         try {
@@ -111,6 +114,8 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             if (response.estado) {
                 tituloModal = '¡Registro exitoso del nuevo talento!'
                 resetForms()
+            } else if (!!response.objeto) {
+                tituloModal = response.objeto
             }
             setCargando(false)
             ejecutaModalComponent(tituloModal, response.mensaje, 'MODAL_CONTROL_1')
@@ -137,7 +142,7 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         setModalOpen(false)
     }
 
-    const ejecutaModalComponent = (titulo: string, descripicion:string, tipoModal:string)=>{
+    const ejecutaModalComponent = (titulo: string, descripicion: string, tipoModal: string) => {
         setPropsModalForm({
             resultForm1: {
                 prop0: titulo,
@@ -145,37 +150,30 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             },
             resultForm2: {},
             resultForm3: []
-        })            
+        })
         setTipoModal(tipoModal)
         setModalOpen(true)
     }
 
     return (
         <>
-            <div className='div-container'>
-                <div className="row">
-                    <div className="col-12 col-sm-12 col-md-12 col-lg-8" >
-                        <div className='div-logo'></div>
-                    </div>
-                    <div className="col-12 col-sm-12 col-md-12 col-lg-4" >
-                        <div className='div-menu-principal'>
-                            <button className='btn btn-link a-link-custom-active' >Registrar RH</button>
-                            <button className='btn btn-link a-link-custom' onClick={() => navigate('/login-rh')} >Gestionar RH</button>
-                        </div>
-                    </div>
-                </div>
-                <div className='div-style-form'>
-                    <RegistraRhForm ref={registraRhFormRef} />
-                    <hr />
-                    <ContratoForm ref={contratoFormRef} />
-                    <hr />
-                    <CursosForm ref={cursosFormRef} />
-                    <hr />
-                    <div className="row mb-5 mt-5">
-                        <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
-                            <div className='div-bottom-custom'>
-                                <button className='btn btn-primary bottom-custom' onClick={() => registraRH()} >Registrar RH</button>
-                            </div>
+            <div className='div-style-form mt-3'>
+                <RegistraRhForm ref={registraRhFormRef} />
+                {
+                    /*
+                }
+                <hr />
+                <ContratoForm ref={contratoFormRef} />
+                <hr />
+                <CursosForm ref={cursosFormRef} />
+                {
+                    */
+                }
+                <hr />
+                <div className="row mb-5 mt-2">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
+                        <div className='div-bottom-custom'>
+                            <button className='btn btn-primary bottom-custom' onClick={() => registraRH()} >Registrar RH</button>
                         </div>
                     </div>
                 </div>

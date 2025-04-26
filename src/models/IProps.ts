@@ -94,6 +94,7 @@ export interface IPropsResultForm {
     prop6?: string;
     prop7?: string;
     prop8?: string;
+    prop9?: string;
 }
 
 export interface IRecursoHumanoDto {
@@ -118,6 +119,7 @@ export interface IContratoRHDto {
     sueldo: string;
     auxilioTransporte: string;
     bono: string;
+    noContrato: string;
 }
 
 export interface ICursosRHDto {

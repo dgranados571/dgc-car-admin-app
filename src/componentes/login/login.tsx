@@ -174,25 +174,14 @@ const Login: React.FC<IZoneProps> = ({ }) => {
     }
 
     return (
-        <><div className='div-container'>
-            <div className="row">
-                <div className="col-12 col-sm-12 col-md-12 col-lg-8" >
-                    <div className='div-logo'></div>
-                </div>
-                <div className="col-12 col-sm-12 col-md-12 col-lg-4" >
-                    <div className='div-menu-principal'>
-                        <button className='btn btn-link a-link-custom' onClick={() => navigate('/registra-rh')} >Registrar RH</button>
-                        <button className='btn btn-link a-link-custom-active' >Gestionar RH</button>
-                    </div>
-                </div>
-            </div>
+        <>
             <div className='div-container-login' style={{ display: actionLogin === 'LOGIN' ? 'block' : 'none' }}>
                 <div className="row mt-3">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
                         <div className='div-login'>
                             <div className='div-login-elements'>
                                 <div className='div-elements-children' >
-                                    <p className=''>A travez de la zona transaccional podra hacer seguimiento y gestión a todos los recursos humano de la oganización:</p>
+                                    <p className=''>A travez de la zona transaccional podra hacer seguimiento y gestión a todos los recursos de la oganización:</p>
                                     <div className='div-inputs-login'>
                                         <p className='p-label-form-login'> Usuario </p>
                                         <input type="text" name='usuario' value={usuario} onChange={(e) => inputEvent(e)} className={usuarioRef ? 'form-control form-control-error' : 'form-control'} placeholder='' autoComplete='off' />
@@ -211,7 +200,6 @@ const Login: React.FC<IZoneProps> = ({ }) => {
                     </div>
                 </div>
             </div>
-
             <div className='div-container-login' style={{ display: actionLogin === 'ACTUALIZA_PASS' ? 'block' : 'none' }}>
                 <div className="row mt-3">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -237,7 +225,6 @@ const Login: React.FC<IZoneProps> = ({ }) => {
                     </div>
                 </div>
             </div>
-        </div>
             {
                 modalOpen ?
                     <Modal tipoModal={tipoModal} modalSi={() => { }} modalNo={() => { cancelaOperacionModal() }} propsModal={propsModalForm} />

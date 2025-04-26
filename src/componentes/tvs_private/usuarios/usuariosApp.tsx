@@ -248,16 +248,18 @@ const UsuariosApp: React.FC<IUsuariosAppProps> = ({ setCargando, zonaConsulta })
             }
             try {
                 const response: IGenericResponse = await authServices.requestPost(body, 8);
-                if (response.estado) {
-                    ejecutaModalComponent('¡Usuario eliminado correctamente!', 'El usuario ha sido eliminado de la plataforma exitosamente. Todos los registros han sido actualizados y procesados correctamente', 'MODAL_CONTROL_1')
+                if (response.estado) {                    
                     setModoELiminar(false)
                     setUserEdita({})
                     consultaInformacionUsuariosApp()
+                    ejecutaModalComponent('¡Usuario eliminado correctamente!', response.mensaje, 'MODAL_CONTROL_1')
+                } else {
+                    ejecutaModalComponent('Error al eliminar el usuario', response.mensaje, 'MODAL_CONTROL_1')
                 }
                 setCargando(false);
             } catch (error) {
-                ejecutaModalComponent('Error al eliminar el usuario', 'Ocurrió un problema durante el proceso de eliminación. Por favor, verifica la información e inténtalo nuevamente. Si el problema persiste, contacta al administrador.', 'MODAL_CONTROL_1')
                 setCargando(false)
+                ejecutaModalComponent('Error al eliminar el usuario', 'Ocurrió un problema durante el proceso de eliminación. Por favor, verifica la información e inténtalo nuevamente. Si el problema persiste, contacta al administrador.', 'MODAL_CONTROL_1')
             }
         } else {
             ejecutaModalComponent('¡Sesión expirada!', 'Para continuar, inicia sesión nuevamente. Esto asegura la protección de tus datos y la mejor experiencia en la plataforma.', 'MODAL_CONTROL_1')
@@ -277,15 +279,15 @@ const UsuariosApp: React.FC<IUsuariosAppProps> = ({ setCargando, zonaConsulta })
             try {
                 const response: IGenericResponse = await authServices.requestPost(body, 7);
                 setCargando(false);
-                if (response.estado) {
-                    ejecutaModalComponent('¡Contraseña restablecida con éxito!', 'La contraseña ha sido reiniciada y se ha asignado una temporal. Por seguridad, te recomendamos actualizarla cuanto antes para continuar utilizando la plataforma sin inconvenientes.', 'MODAL_CONTROL_1')
+                if (response.estado) {                    
                     consultaInformacionUsuariosApp()
+                    ejecutaModalComponent('¡Contraseña restablecida con éxito!', response.mensaje, 'MODAL_CONTROL_1')
                 } else {
-                    ejecutaModalComponent('Error al restablecer la contraseña', 'No se pudo completar el reinicio de la contraseña. Por favor, intenta nuevamente o contacta al administrador.', 'MODAL_CONTROL_1')
+                    ejecutaModalComponent('Error al restablecer la contraseña', response.mensaje, 'MODAL_CONTROL_1')
                 }
-            } catch (error) {
-                ejecutaModalComponent('Error al restablecer la contraseña', 'No se pudo completar el reinicio de la contraseña. Por favor, intenta nuevamente o contacta al administrador.', 'MODAL_CONTROL_1')
+            } catch (error) {               
                 setCargando(false)
+                ejecutaModalComponent('Error al restablecer la contraseña', 'No se pudo completar el reinicio de la contraseña. Por favor, intenta nuevamente o contacta al administrador.', 'MODAL_CONTROL_1')
             }
         } else {
             ejecutaModalComponent('¡Sesión expirada!', 'Para continuar, inicia sesión nuevamente. Esto asegura la protección de tus datos y la mejor experiencia en la plataforma.', 'MODAL_CONTROL_1')
@@ -380,12 +382,12 @@ const UsuariosApp: React.FC<IUsuariosAppProps> = ({ setCargando, zonaConsulta })
                 if (response.estado) {
                     setUsuariosList(response.objeto)
                 } else {
-                    ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible consultar la información, contacta al administrador', 'MODAL_CONTROL_1')
+                    ejecutaModalComponent('Valla algo salió mal¡¡', response.mensaje, 'MODAL_CONTROL_1')
                 }
                 setCargando(false);
-            } catch (error) {
-                ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible consultar la información, contacta al administrador', 'MODAL_CONTROL_1')
+            } catch (error) {                
                 setCargando(false)
+                ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible consultar la información, contacta al administrador', 'MODAL_CONTROL_1')
             }
         } else {
             ejecutaModalComponent('¡Sesión expirada!', 'Para continuar, inicia sesión nuevamente. Esto asegura la protección de tus datos y la mejor experiencia en la plataforma.', 'MODAL_CONTROL_1')

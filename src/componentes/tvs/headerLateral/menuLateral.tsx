@@ -10,7 +10,7 @@ const MenuLateralComponent: React.FC<IMenuLateralProps> = ({ setOpenMenu, seleci
 
     const cerrarSesion = () => {
         sessionStorage.clear();
-        navigate('/login-rh');
+        navigate('/index-rh');
     }
 
     return (
