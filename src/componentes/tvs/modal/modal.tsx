@@ -73,50 +73,7 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                         <div className='div-info-item'>
                                             <p className='p-label-form-text m-1'>Perfil profesional: </p>
                                             <p className='p-label-form m-1'>{propsModal.resultForm1.prop7} </p>
-                                        </div>
-                                        <hr />
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Contrato: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop0} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Zona: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop1} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Municipio: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop2} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Fecha de inicio: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop3} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Cargo: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop4} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Area: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop5} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Sueldo: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop6} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Auxilio de transporte: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop7} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Bono: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop8} </p>
-                                        </div>
-                                        <hr />
-                                        <div className="row">
-                                            {
-                                                detalleCursosList(propsModal.resultForm3)
-                                            }
-                                        </div>
+                                        </div>                                        
                                         <hr />
                                         <p className='p-label-form'>Es correcta la información?:</p>
                                         <div className='d-flex justify-content-around mt-3'>

@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { IContratoRHDto, ICursosRHDto, IFormRHHandle, IGenericResponse, IPropsModal, IRecursoHumanoDto, IZoneProps } from '../../models/IProps'
-import { useNavigate } from 'react-router-dom';
+import { IFormRHHandle, IGenericResponse, IPropsModal, IRecursoHumanoDto, IZoneProps } from '../../models/IProps'
 import RegistraRhForm from './registraRhForm';
-import ContratoForm from './contratoForm';
-import CursosForm from './cursosForm';
+
 import Modal from '../tvs/modal/modal';
 import { Cargando } from '../tvs/loader/cargando';
 import { AuthServices } from '../../services/authServices';
@@ -11,8 +9,8 @@ import { AuthServices } from '../../services/authServices';
 const RegistraRh: React.FC<IZoneProps> = () => {
 
     const [cargando, setCargando] = useState(false)
-    const [tipoModal, setTipoModal] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
+    const [tipoModal, setTipoModal] = useState('')
     const [propsModalForm, setPropsModalForm] = useState<IPropsModal>({
         resultForm1: {},
         resultForm2: {},
@@ -20,14 +18,10 @@ const RegistraRh: React.FC<IZoneProps> = () => {
     })
 
     const registraRhFormRef = useRef<IFormRHHandle>(null);
-    const contratoFormRef = useRef<IFormRHHandle>(null);
-    const cursosFormRef = useRef<IFormRHHandle>(null);
 
     const registraRH = () => {
         let formValidado = [];
         let resultForm1 = null;
-        // let resultForm2 = null;
-        // let resultForm3 = null;
         if (registraRhFormRef.current) {
             resultForm1 = registraRhFormRef.current.funcionHandle1()
             if (!resultForm1) {
@@ -36,24 +30,6 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         } else {
             formValidado.push('Errores en resultForm1');
         }
-        /*
-        if (contratoFormRef.current) {
-            resultForm2 = contratoFormRef.current.funcionHandle1()
-            if (!resultForm2) {
-                formValidado.push('Errores en resultForm2');
-            }
-        } else {
-            formValidado.push('Errores en resultForm2');
-        }
-        if (cursosFormRef.current) {
-            resultForm3 = cursosFormRef.current.funcionHandle1()
-            if (!resultForm3) {
-                formValidado.push('Errores en resultForm3');
-            }
-        } else {
-            formValidado.push('Errores en resultForm3');
-        }
-        */
         if (formValidado.length === 0) {
             setPropsModalForm({
                 resultForm1,
@@ -100,7 +76,7 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             fechaCurso: curso.fechaCertificacion,
             estado: curso.estado
         }));
-        
+
         */
         const body = {
             "recursoHumano": infoForm1,
@@ -129,12 +105,6 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         if (registraRhFormRef.current) {
             registraRhFormRef.current.funcionHandle2()
         }
-        if (contratoFormRef.current) {
-            contratoFormRef.current.funcionHandle2()
-        }
-        if (cursosFormRef.current) {
-            cursosFormRef.current.funcionHandle2()
-        }
     }
 
     const cancelaOperacionModal = () => {
@@ -159,16 +129,6 @@ const RegistraRh: React.FC<IZoneProps> = () => {
         <>
             <div className='div-style-form mt-3'>
                 <RegistraRhForm ref={registraRhFormRef} />
-                {
-                    /*
-                }
-                <hr />
-                <ContratoForm ref={contratoFormRef} />
-                <hr />
-                <CursosForm ref={cursosFormRef} />
-                {
-                    */
-                }
                 <hr />
                 <div className="row mb-5 mt-2">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
