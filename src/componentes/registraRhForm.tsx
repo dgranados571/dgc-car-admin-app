@@ -7,6 +7,9 @@ const RegistraRhForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref)
     useImperativeHandle(ref, () => ({
         funcionHandle1() {
             return validateForm()
+        },
+        funcionHandle2() {
+            return resetForm()
         }
     }))
 
@@ -67,6 +70,24 @@ const RegistraRhForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref)
             formValidado.splice(0, formValidado.length)
             return null
         }
+    }
+
+    const resetForm = () => {
+        setApellidos('')
+        setNombres('')
+        setFechaNacimiento('')
+        setNumeroIdentificacion('')
+        setCorreoPersonal('')
+        setCorreoCorporativo('')
+        setCelular('')
+        setPerfilProfesional('')
+        setApellidosRef(false)
+        setNombresRef(false)
+        setFechaNacimientoRef(false)
+        setNumeroIdentificacionRef(false)
+        setCorreoPersonalRef(false)
+        setCorreoCorporativoRef(false)
+        setCelularRef(false)
     }
 
     return (

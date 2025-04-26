@@ -1,8 +1,19 @@
 export interface IZoneProps { }
 
+export interface IFormRHHandle {
+    funcionHandle1: () => any;
+    funcionHandle2: () => any;
+}
+
 export interface IListasSelect {
     value: any,
     label: string
+}
+
+export interface IGenericResponse {
+    estado: boolean,
+    mensaje: string,
+    objeto: any
 }
 
 export interface IListasCursos {
@@ -14,18 +25,14 @@ export interface IListasCursos {
     diasPorVencer: number,
 }
 
-export interface IFormRHHandle {
-    funcionHandle1: () => any;
-}
-
 export interface IModalProps {
     tipoModal: string;
     modalSi: Function,
     modalNo: Function,
-    propsModal: IPropsModalRegistra
+    propsModal: IPropsModal
 }
 
-export interface IPropsModalRegistra {
+export interface IPropsModal {
     resultForm1: IPropsResultForm
     resultForm2: IPropsResultForm
     resultForm3: IListasCursos[]
@@ -43,4 +50,33 @@ export interface IPropsResultForm {
     prop8?: string;
 }
 
+export interface IRecursoHumanoDto {
+    nombres: string;
+    apellidos: string;
+    fechaNacimiento: string;
+    numeroIdentificacion: string;
+    celular: string;
+    correoPersonal: string;
+    correoCorporativo: string;
+    perfilProfesional: string;
+}
+
+export interface IContratoRHDto {
+    contrato: string;
+    zonaContrato: string;
+    municipio: string;
+    fechaInicio: string;
+    fechaFinalizacion: string;
+    cargo: string;
+    area: string;
+    sueldo: string;
+    auxilioTransporte: string;
+    bono: string;
+}
+
+export interface ICursosRHDto {
+    nombreCurso: string;
+    fechaCurso: string;
+    estado: string;    
+}
 

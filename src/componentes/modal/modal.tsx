@@ -7,7 +7,6 @@ import { IListasCursos, IModalProps } from '../../models/IProps'
 
 const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal }) => {
 
-
     const detalleCursosList = (resultForm3: IListasCursos[]) => {
         return resultForm3.map((cursoId, ind) => {
             return (
@@ -33,17 +32,11 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                 </>
             )
         })
-
-
     }
 
     const showModal = () => {
         switch (tipoModal) {
             case 'MODAL_RESUMEN_FORM':
-
-
-
-
                 return (
                     <>
                         <div className='div-modal-active'>
@@ -126,6 +119,43 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                         </div>
                                         <hr />
                                         <p className='p-label-form'>Es correcta la información?:</p>
+                                        <div className='d-flex justify-content-around mt-3'>
+                                            <button className='btn btn-secondary bottom-custom-secondary' onClick={() => modalNo()}>Cancelar</button>
+                                            <button className='btn btn-primary bottom-custom' onClick={() => modalSi()} >Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
+            case 'MODAL_CONTROL_1':
+                return (
+                    <>
+                        <div className='div-modal-active'>
+                            <div className='div-content-element-padre'>
+                                <div className='div-content-element'>
+                                    <div className='div-size-content'>
+                                        <h4>{propsModal.resultForm1.prop0} </h4>
+                                        <p className='mt-2'>{propsModal.resultForm1.prop1} </p>
+                                        <div className='d-flex justify-content-around mt-3'>
+                                            <button className='btn btn-primary bottom-custom' onClick={() => modalNo()} >Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
+            case 'MODAL_CONTROL_2':
+                return (
+                    <>
+                        <div className='div-modal-active'>
+                            <div className='div-content-element-padre'>
+                                <div className='div-content-element'>
+                                    <div className='div-size-content'>
+                                        <h4>{propsModal.resultForm1.prop0} </h4>
+                                        <p className='mt-2'>{propsModal.resultForm1.prop1} </p>
                                         <div className='d-flex justify-content-around mt-3'>
                                             <button className='btn btn-secondary bottom-custom-secondary' onClick={() => modalNo()}>Cancelar</button>
                                             <button className='btn btn-primary bottom-custom' onClick={() => modalSi()} >Aceptar</button>

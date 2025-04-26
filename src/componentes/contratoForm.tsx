@@ -1,6 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { IFormRHHandle, IListasSelect } from '../models/IProps'
-import { set } from 'react-datepicker/dist/date_utils'
 
 const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
 
@@ -8,6 +7,9 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     useImperativeHandle(ref, () => ({
         funcionHandle1() {
             return validateForm()
+        },
+        funcionHandle2() {
+            return resetForm()
         }
     }))
 
@@ -68,7 +70,6 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [auxTransporte, setAuxTransporte] = useState('');
     const [bono, setBono] = useState('');
 
-
     const [constratoConRef, setContratoConRef] = useState(false);
     const [zonaRef, setZonaRef] = useState(false);
     const [municipioRef, setMunicipioRef] = useState(false);
@@ -83,6 +84,34 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [municipiosList, setMunicipiosList] = useState<IListasSelect[]>([]);
 
     const [disableInputZona, setDisableInputZona] = useState(false);
+
+    const resetForm = () => {
+        
+        setContratoCon('INITIAL');
+        setZona('INITIAL');
+        setMunicipio('INITIAL');
+        setFechaInicio('');
+        setCargo('');
+        setArea('');
+        setSueldo('');
+        setAuxTransporte('');
+        setBono('');
+
+        setContratoConRef(false)
+        setZonaRef(false)
+        setMunicipioRef(false)
+        setFechaInicioRef(false)
+        setCargoRef(false)
+        setAreaRef(false)
+        setSueldoRef(false)
+        setAuxTransporteRef(false)
+        setBonoRef(false)
+
+        setZonasList([])
+        setMunicipiosList([])
+        setDisableInputZona(false)
+
+    }
 
     const evaluateContratoCon = (contratoCon: string) => {
         switch (contratoCon) {
@@ -168,6 +197,11 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
             formValidado.push('fechaInicio');
             setFechaInicioRef(true)
         }
+        setCargoRef(false)
+        setAreaRef(false)
+        setSueldoRef(false)
+        setAuxTransporteRef(false)
+        setBonoRef(false)
         if (formValidado.length === 0) {
             return {
                 prop0: constratoCon,

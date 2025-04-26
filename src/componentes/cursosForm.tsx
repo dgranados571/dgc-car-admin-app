@@ -8,6 +8,9 @@ const CursosForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => 
     useImperativeHandle(ref, () => ({
         funcionHandle1() {
             return validateForm()
+        },
+        funcionHandle2() {
+            return resetForm()
         }
     }))
 
@@ -89,6 +92,14 @@ const CursosForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => 
 
     const validateForm = () => {
         return cursosList
+    }
+
+    const resetForm = () => {
+        setCurso('INITIAL');
+        setFechaInicio('');
+        setCursoRef(false);
+        setFechaInicioRef(false);
+        setCursosList([]);
     }
 
     return (

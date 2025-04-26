@@ -1,22 +1,25 @@
 import React, { useRef, useState } from 'react'
-import { IFormRHHandle, IPropsModalRegistra, IZoneProps } from '../models/IProps'
+import { IContratoRHDto, ICursosRHDto, IFormRHHandle, IGenericResponse, IPropsModal, IRecursoHumanoDto, IZoneProps } from '../models/IProps'
 import { useNavigate } from 'react-router-dom';
 import RegistraRhForm from './registraRhForm';
 import ContratoForm from './contratoForm';
 import CursosForm from './cursosForm';
 import Modal from './modal/modal';
+import { Cargando } from './loader/cargando';
+import { AuthServices } from '../services/authServices';
 
 const RegistraRh: React.FC<IZoneProps> = () => {
 
     const navigate = useNavigate();
-
+    const [cargando, setCargando] = useState(false)
+    const [tipoModal, setTipoModal] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
 
     const registraRhFormRef = useRef<IFormRHHandle>(null);
     const contratoFormRef = useRef<IFormRHHandle>(null);
     const cursosFormRef = useRef<IFormRHHandle>(null);
 
-    const [propsModalForm, setPropsModalForm] = useState<IPropsModalRegistra>({
+    const [propsModalForm, setPropsModalForm] = useState<IPropsModal>({
         resultForm1: {},
         resultForm2: {},
         resultForm3: []
@@ -57,14 +60,100 @@ const RegistraRh: React.FC<IZoneProps> = () => {
                 resultForm2,
                 resultForm3
             })
+            setTipoModal('MODAL_RESUMEN_FORM')
             setModalOpen(true)
         } else {
             formValidado.splice(0, formValidado.length)
         }
     }
 
-    const registraRHService = () => {
-        
+    const registraRHService = async () => {
+        setModalOpen(false)
+        setCargando(true)
+        const infoForm1: IRecursoHumanoDto = {
+            nombres: propsModalForm.resultForm1.prop1 || '',
+            apellidos: propsModalForm.resultForm1.prop0 || '',
+            fechaNacimiento: propsModalForm.resultForm1.prop2 || '',
+            numeroIdentificacion: propsModalForm.resultForm1.prop3 || '',
+            celular: propsModalForm.resultForm1.prop6 || '',
+            correoPersonal: propsModalForm.resultForm1.prop4 || '',
+            correoCorporativo: propsModalForm.resultForm1.prop5 || '',
+            perfilProfesional: propsModalForm.resultForm1.prop7 || '',
+        }
+
+        const infoForm2: IContratoRHDto = {
+            contrato: propsModalForm.resultForm2.prop0 || '',
+            zonaContrato: propsModalForm.resultForm2.prop1 || '',
+            municipio: propsModalForm.resultForm2.prop2 || '',
+            fechaInicio: propsModalForm.resultForm2.prop3 || '',
+            fechaFinalizacion: '',
+            cargo: propsModalForm.resultForm2.prop4 || '',
+            area: propsModalForm.resultForm2.prop5 || '',
+            sueldo: propsModalForm.resultForm2.prop6 || '',
+            auxilioTransporte: propsModalForm.resultForm2.prop7 || '',
+            bono: propsModalForm.resultForm2.prop8 || ''
+        }
+
+        const infoForm3: ICursosRHDto[] = propsModalForm.resultForm3.map((curso) => ({
+            nombreCurso: curso.nombreCurso,
+            fechaCurso: curso.fechaCertificacion,
+            estado: curso.estado
+        }));
+
+        const body = {
+            "recursoHumano": infoForm1,
+            "contratoRH": infoForm2,
+            "cursosRH": infoForm3,
+        }
+        const authServices = new AuthServices();
+        try {
+            const response: IGenericResponse = await authServices.requestPost(body, 1);
+            let tituloModal = 'Valla algo salió mal¡¡'
+            if (response.estado) {
+                tituloModal = '¡Registro exitoso del nuevo talento!'
+                resetForms()
+            }
+            setPropsModalForm({
+                resultForm1: {
+                    prop0: tituloModal,
+                    prop1: response.mensaje,
+                },
+                resultForm2: {},
+                resultForm3: []
+            })
+            setCargando(false)
+            setTipoModal('MODAL_CONTROL_1')
+            setModalOpen(true)
+        } catch (error) {
+            setPropsModalForm({
+                resultForm1: {
+                    prop0: 'Valla algo salió mal¡¡',
+                    prop1: 'No fue posible el registro de la información, contacte al administrador',
+                },
+                resultForm2: {},
+                resultForm3: []
+            })
+            setCargando(false)
+            setTipoModal('MODAL_CONTROL_1')
+            setModalOpen(true)
+        }
+    }
+
+    const resetForms = () => {
+        if (registraRhFormRef.current) {
+            registraRhFormRef.current.funcionHandle2()
+        }
+        if (contratoFormRef.current) {
+            contratoFormRef.current.funcionHandle2()
+        }
+        if (cursosFormRef.current) {
+            cursosFormRef.current.funcionHandle2()
+        }
+    }
+
+    const cancelaOperacionModal = () => {
+        setTipoModal('')
+        setModalOpen(false)
     }
 
     return (
@@ -99,7 +188,13 @@ const RegistraRh: React.FC<IZoneProps> = () => {
             </div>
             {
                 modalOpen ?
-                    <Modal tipoModal={'MODAL_RESUMEN_FORM'} modalSi={() => { }} modalNo={() => { setModalOpen(false) }} propsModal={propsModalForm} />
+                    <Modal tipoModal={tipoModal} modalSi={() => { registraRHService() }} modalNo={() => { cancelaOperacionModal() }} propsModal={propsModalForm} />
+                    :
+                    <></>
+            }
+            {
+                cargando ?
+                    <Cargando />
                     :
                     <></>
             }
