@@ -298,13 +298,22 @@ p {
   position: relative;
 }
 
+.div-targer-admin-sin-hover {
+  width: 12rem;
+  height: 6rem;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .div-targer-admin:hover {
   width: 12rem;
   height: 6rem;
   background-color: rgb(200, 192, 228);
   border-radius: 12px;
   box-shadow: 0px 2px 30px 18px rgba(245, 213, 213, 0.8);
-  ;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -322,6 +331,17 @@ p {
 }
 
 .div-targer-action {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  background-color: #1c1d25;
+  width: 100%;
+  border-radius: 0px 0px 8px 8px;
+  padding: 5px 0;
+}
+
+.div-targer-sin-action {
   display: flex;
   justify-content: center;
   position: absolute;
@@ -390,6 +410,11 @@ p {
   }
 
   .div-targer-admin {
+    width: 15rem;
+    height: 9rem;
+  }
+
+  .div-targer-admin-sin-hover {
     width: 15rem;
     height: 9rem;
   }

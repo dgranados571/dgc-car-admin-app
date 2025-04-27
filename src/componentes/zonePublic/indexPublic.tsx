@@ -6,7 +6,7 @@ import Dashboard from './dashboard'
 
 const IndexPublic = () => {
 
-    const [redirectZone, setRedirectZone] = useState('VIEW_LOGIN')
+    const [redirectZone, setRedirectZone] = useState('VIEW_DASHBOARD')
 
     const validateRedirect = () => {
         switch (redirectZone) {
@@ -14,7 +14,7 @@ const IndexPublic = () => {
                 return (
                     <Login />
                 )
-            case 'VIEW_REGISTRA_RH':
+            case 'VIEW_DASHBOARD':
                 return (
                     <div className='div-style-form mt-3'>
                         <Dashboard />
@@ -22,19 +22,20 @@ const IndexPublic = () => {
                 )
             default:
                 return (
-                    <Login />
+                    <></>
                 )
         }
     }
+
     return (
         <>
             <div className='div-container'>
                 <div className="row m-0">
                     <div className="col-6 col-sm-6 col-md-6 col-lg-6 div-targer-admin-padre" >
-                        <div className='div-targer-admin' onClick={() => { setRedirectZone('VIEW_REGISTRA_RH') }}>
+                        <div className='div-targer-admin' onClick={() => { setRedirectZone('VIEW_DASHBOARD') }}>
                             <FontAwesomeIcon className='icon-menu-principal' icon={faPieChart} />
                             <div className='div-targer-action'>
-                                <p className={redirectZone === 'VIEW_REGISTRA_RH' ? 'p-menu-label-active' : 'p-menu-label'}>Dashboard</p>
+                                <p className={redirectZone === 'VIEW_DASHBOARD' ? 'p-menu-label-active' : 'p-menu-label'}>Dashboard</p>
                             </div>
                         </div>
                     </div>
@@ -51,7 +52,6 @@ const IndexPublic = () => {
                     validateRedirect()
                 }
             </div>
-
         </>
     )
 }

@@ -50,6 +50,24 @@ export interface IZoneRootProps {
     zonaConsulta: string
 }
 
+export interface IListaRhProps {
+    setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
+    setRHContract: React.Dispatch<React.SetStateAction<any>>;    
+}
+
+export interface IRegistraRhProps {
+    setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IContratoRhProps {
+    rHContract: any;
+    setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IDetalleRhInfoProps {
+    rHContract: any;
+}
+
 export interface IUsuariosAppProps {
     setCargando: React.Dispatch<React.SetStateAction<boolean>>;
     zonaConsulta: string

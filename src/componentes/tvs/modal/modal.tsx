@@ -5,30 +5,39 @@ import { IListasCursos, IModalProps } from '../../../models/IProps'
 const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal }) => {
 
     const detalleCursosList = (resultForm3: IListasCursos[]) => {
-        return resultForm3.map((cursoId, ind) => {
+
+        if (resultForm3.length === 0) {
             return (
                 <>
-                    <div className="col-12 col-sm-6 col-md-6 col-lg-4 div-lista-cursos" >
-                        <div className='d-flex justify-content-start align-items-start' >
-                            <p className='p-label-form m-0'> Curso: </p>
-                            <p className='mx-2'> {cursoId.nombreCurso} </p>
-                        </div>
-                        <div className='d-flex justify-content-start' >
-                            <p className='p-label-form m-0'>Fecha certificación: </p>
-                            <p className='mx-2'> {cursoId.fechaCertificacion} </p>
-                        </div>
-                        <div className='d-flex justify-content-start' >
-                            <p className='p-label-form m-0'>Fecha vencimiento: </p>
-                            <p className='mx-2'> {cursoId.fechaVencimiento} </p>
-                        </div>
-                        <div className='d-flex justify-content-start' >
-                            <p className='p-label-form m-0'>Estado: </p>
-                            <p className='mx-2'> {cursoId.estado} - {cursoId.diasPorVencer} Dias </p>
-                        </div>
-                    </div>
+                    <p className='p-label-form m-0'>Sin registros de cursos</p>
                 </>
             )
-        })
+        } else {
+            return resultForm3.map((cursoId, ind) => {
+                return (
+                    <>
+                        <div className="col-12 col-sm-6 col-md-6 col-lg-4 div-lista-cursos" >
+                            <div className='d-flex justify-content-start align-items-start' >
+                                <p className='p-label-form m-0'> Curso: </p>
+                                <p className='mx-2'> {cursoId.nombreCurso} </p>
+                            </div>
+                            <div className='d-flex justify-content-start' >
+                                <p className='p-label-form m-0'>Fecha certificación: </p>
+                                <p className='mx-2'> {cursoId.fechaCertificacion} </p>
+                            </div>
+                            <div className='d-flex justify-content-start' >
+                                <p className='p-label-form m-0'>Fecha vencimiento: </p>
+                                <p className='mx-2'> {cursoId.fechaVencimiento} </p>
+                            </div>
+                            <div className='d-flex justify-content-start' >
+                                <p className='p-label-form m-0'>Estado: </p>
+                                <p className='mx-2'> {cursoId.estado} - {cursoId.diasPorVencer} Dias </p>
+                            </div>
+                        </div>
+                    </>
+                )
+            })
+        }
     }
 
     const showModal = () => {
@@ -70,7 +79,71 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                         <div className='div-info-item'>
                                             <p className='p-label-form-text m-1'>Perfil profesional: </p>
                                             <p className='p-label-form m-1'>{propsModal.resultForm1.prop7} </p>
-                                        </div>                                        
+                                        </div>
+                                        <hr />
+                                        <p className='p-label-form'>Es correcta la información?:</p>
+                                        <div className='d-flex justify-content-around mt-3'>
+                                            <button className='btn btn-secondary bottom-custom-secondary' onClick={() => modalNo()}>Cancelar</button>
+                                            <button className='btn btn-primary bottom-custom' onClick={() => modalSi()} >Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
+            case 'MODAL_RESUMEN_FORM_2':
+                return (
+                    <>
+                        <div className='div-modal-active'>
+                            <div className='div-content-element-padre'>
+                                <div className='div-content-element'>
+                                    <div className='div-size-content'>
+                                        <div className="d-flex justify-content-between">
+                                            <h4>Resumen de registro contrato</h4>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Contrato: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop0} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Zona: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop1} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Municipio: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop2} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Fecha de inicio: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop3} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Cargo: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop4} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Area: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop5} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Sueldo: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop6} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Auxilio de transporte: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop7} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Bono: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop8} </p>
+                                        </div>
+                                        <hr />
+                                        <div className="row">
+                                            {
+                                                detalleCursosList(propsModal.resultForm3)
+                                            }
+                                        </div>
                                         <hr />
                                         <p className='p-label-form'>Es correcta la información?:</p>
                                         <div className='d-flex justify-content-around mt-3'>

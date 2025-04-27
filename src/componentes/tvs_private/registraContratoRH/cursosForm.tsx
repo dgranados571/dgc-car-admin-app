@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { IFormRHHandle, IListasCursos } from '../../models/IProps';
+import { IFormRHHandle, IListasCursos } from '../../../models/IProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
@@ -105,7 +105,7 @@ const CursosForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => 
     return (
         <>
             <h4 >Información de los cursos realizados</h4>
-            <p>A continuación, selecciona la información del curso realizado por el recurso humano:</p>
+            <p>A continuación, selecciona la información del curso realizado por el recurso humano y agregalo antes de ejecutar la creación del contrato:</p>
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4" >
                     <div className='div-form'>

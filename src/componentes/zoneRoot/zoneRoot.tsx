@@ -5,8 +5,8 @@ import MenuLateralComponent from '../tvs/headerLateral/menuLateral'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faBars, faPieChart, faVcard } from '@fortawesome/free-solid-svg-icons'
 import UsuariosApp from '../tvs_private/usuarios/usuariosApp'
-import RegistraRh from '../zonePublic/registraRh'
 import Dashboard from '../zonePublic/dashboard'
+import GestionRh from '../tvs_private/gestionRH/gestionRh'
 
 const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zonaConsulta }) => {
 
@@ -64,7 +64,7 @@ const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zona
                                         </div>
                                     </div>
                                     <div className="div-dashboard-content">
-                                        <RegistraRh />
+                                        <GestionRh />
                                     </div>
                                 </div>
                             </div>

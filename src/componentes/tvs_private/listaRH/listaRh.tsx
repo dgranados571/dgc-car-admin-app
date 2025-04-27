@@ -1,0 +1,152 @@
+import React, { useEffect, useState } from 'react'
+import { IGenericResponse, IListaRhProps, IPropsModal } from '../../../models/IProps'
+import { AuthServices } from '../../../services/authServices'
+import Modal from '../../tvs/modal/modal'
+import { Cargando } from '../../tvs/loader/cargando'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCodeFork } from '@fortawesome/free-solid-svg-icons'
+
+const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) => {
+
+  const [cargando, setCargando] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [tipoModal, setTipoModal] = useState('')
+  const [propsModalForm, setPropsModalForm] = useState<IPropsModal>({
+    resultForm1: {},
+    resultForm2: {},
+    resultForm3: []
+  })
+
+  const [rHList, setRHList] = useState<any[]>([])
+
+  useEffect(() => {
+    getRHsInfo()
+  }, [])
+
+  const getRHsInfo = async () => {
+    setCargando(true)
+    const authServices = new AuthServices();
+    try {
+      const response: IGenericResponse = await authServices.requestPost({}, 11);
+      if (response.estado) {
+        setRHList(response.objeto)
+      } else {
+        ejecutaModalComponent('Valla algo salió mal¡¡', response.mensaje, 'MODAL_CONTROL_1')
+      }
+      setCargando(false)
+    } catch (error) {
+      setCargando(false)
+      ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible consultar la información, contacte al administrador', 'MODAL_CONTROL_1')
+    }
+  }
+
+  const registrarContrato = async (rHId: any) => {
+    setRedirectZone('VIEW_CONTRATO_RH')
+    setRHContract(rHId)
+  }
+
+  const ejecutaModalComponent = (titulo: string, descripicion: string, tipoModal: string) => {
+    setPropsModalForm({
+      resultForm1: {
+        prop0: titulo,
+        prop1: descripicion,
+      },
+      resultForm2: {},
+      resultForm3: []
+    })
+    setTipoModal(tipoModal)
+    setModalOpen(true)
+  }
+
+  const cancelaOperacionModal = () => {
+    setTipoModal('')
+    setModalOpen(false)
+  }
+
+  return (
+    <>
+      <div className='div-style-form'>
+        {
+          rHList.length > 0 ?
+            <>
+              <div className='div-style-form-whit-table'>
+                <table className='table-info'>
+                  <thead>
+                    <tr>
+                      <td className='td-info'>
+                        <p className='p-label-form'>Nombres</p>
+                      </td>
+                      <td className='td-info'>
+                        <p className='p-label-form'>No. identificación </p>
+                      </td>
+                      <td className='td-info'>
+                        <p className='p-label-form'>Celular</p>
+                      </td>
+                      <td className='td-info'>
+                        <p className='p-label-form'>Correo personal</p>
+                      </td>
+                      <td className='td-info'>
+                        <p className='p-label-form'>Perfil</p>
+                      </td>
+                      <td className='td-info'>
+                        <p className='p-label-form'>Acciones</p>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      rHList.map((rHId, key) => {
+                        return (
+                          <tr key={key} className='tr-tablet'>
+                            <td className='td-info'>
+                              <p className=''>{rHId.nombres} {rHId.apellidos}</p>
+                            </td>
+                            <td className='td-info'>
+                              <p className=''>{rHId.numero_identificacion}</p>
+                            </td>
+                            <td className='td-info'>
+                              <p className=''>{rHId.celular}</p>
+                            </td>
+                            <td className='td-info'>
+                              <p className=''> {rHId.correo_personal} </p>
+                            </td>
+                            <td className='td-info'>
+                              <p className=''> {rHId.perfil_profesional} </p>
+                            </td>
+                            <td className='td-info'>
+                              <div className='d-flex'>
+                                <button className='btn btn-link bottom-custom-link' onClick={() => { registrarContrato(rHId) }}>
+                                  <FontAwesomeIcon className='icons-table-ds' icon={faCodeFork} /><p className='margin-icons'>Asociar contrato</p>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </>
+            :
+            <p className=''>No hay información</p>
+        }
+      </div>
+      {
+        modalOpen ?
+          <Modal tipoModal={tipoModal} modalSi={() => { }} modalNo={() => { cancelaOperacionModal() }} propsModal={propsModalForm} />
+          :
+          <></>
+      }
+      {
+        cargando ?
+          <Cargando />
+          :
+          <></>
+      }
+    </>
+
+  )
+}
+
+export default ListaRh

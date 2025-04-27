@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { IFormRHHandle, IListasSelect } from '../../models/IProps'
+import { IFormRHHandle, IListasSelect } from '../../../models/IProps'
 
 const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
 
@@ -60,11 +60,32 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         { value: 'YOPAL', label: 'YOPAL' }
     ]
 
+    const cargosList = [
+        { value: 'INITIAL', label: 'Seleccione' },
+        { value: 'ADMINISTRATIVA', label: 'Administrativa' },
+        { value: 'ADMISIONES', label: 'Admisiones' },
+        { value: 'APOYO_LIDER_DE_FACTURACION', label: 'Apoyo lider de facturacion' },
+        { value: 'AUDITORIA', label: 'Auditoria' },
+        { value: 'AUXILIAR_ADMINISTRATIVO', label: 'Auxiliar administrativo' },
+        { value: 'AUXILIAR_FACTURACION', label: 'Auxiliar facturacion' },
+        { value: 'CX_MATERNO_INFANTIL', label: 'C.X Materno infantil' },
+        { value: 'COORDINADOR', label: 'Coordinador' },
+        { value: 'FACTURADOR', label: 'Facturador' },
+        { value: 'HOSPITALIZACION', label: 'Hospitalización' },
+        { value: 'JUAN_LUIS_Y_HOSPI', label: 'Juan luis y Hospi' },
+        { value: 'LIDER_FACTURACION', label: 'Lider facturacion' },
+        { value: 'LIDER_TALENTO_HUMANO', label: 'Lider talento humano' },
+        { value: 'RADICADOR', label: 'Radicador' },
+        { value: 'SUPERVISOR_CONSULTA_EXTERNA', label: 'Supervisor - consulta externa' },
+        { value: 'TECNICO_AUDITORIA', label: 'Tecnico auditoria' },
+    ];
+
+
     const [constratoCon, setContratoCon] = useState('INITIAL');
     const [zona, setZona] = useState('INITIAL');
     const [municipio, setMunicipio] = useState('INITIAL');
     const [fechaInicio, setFechaInicio] = useState('');
-    const [cargo, setCargo] = useState('');
+    const [cargo, setCargo] = useState('INITIAL');
     const [area, setArea] = useState('');
     const [sueldo, setSueldo] = useState('');
     const [auxTransporte, setAuxTransporte] = useState('');
@@ -92,7 +113,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         setZona('INITIAL');
         setMunicipio('INITIAL');
         setFechaInicio('');
-        setCargo('');
+        setCargo('INITIAL');
         setArea('');
         setSueldo('');
         setAuxTransporte('');
@@ -211,7 +232,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 prop1: zona,
                 prop2: municipio,
                 prop3: fechaInicio,
-                prop4: cargo,
+                prop4: cargo === 'INITIAL' ? '' : cargo,
                 prop5: area,
                 prop6: sueldo,
                 prop7: auxTransporte,
@@ -288,8 +309,18 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
-                        <p className='p-label-form'>Cargo: </p>
-                        <input type="text" value={cargo} onChange={(e) => setCargo(e.target.value)} className={cargoRef ? 'form-control form-control-error' : 'form-control'} />
+                        <p className='p-label-form'>Cargo: </p>                        
+                        {
+                            <select value={cargo} onChange={(e) => setCargo(e.target.value)} className={cargoRef ? 'form-control form-control-error' : 'form-control'} >
+                                {
+                                    cargosList.map((key, i) => {
+                                        return (
+                                            <option key={i} value={key.value}>{key.label}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        }
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
@@ -322,7 +353,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                         <input type="text" value={noContrato} onChange={(e) => setNoContrato(e.target.value)} className={noContratoRef ? 'form-control form-control-error' : 'form-control'} />
                     </div>
                     <p>
-                        **Ingrese el número de contrato. Si deja el valor en 0, se asignará automáticamente el próximo número disponible. Si el número ingresado ya existe, 
+                        **Ingrese un número de contrato. Si deja el valor en 0, se asignará automáticamente el próximo número disponible. Si el número ingresado ya existe,
                         no podrá crear el contrato.**
                     </p>
                 </div>

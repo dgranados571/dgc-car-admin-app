@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import "react-datepicker/dist/react-datepicker.css";
-import { IFormRHHandle } from '../../models/IProps';
+import { IFormRHHandle } from '../../../models/IProps';
 
 const RegistraRhForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
 
