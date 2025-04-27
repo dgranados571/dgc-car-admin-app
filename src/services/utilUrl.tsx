@@ -53,6 +53,12 @@ export const UtilUrl = () => {
       urlEntornoLambda,
       pathLambda: '/service/caradmin/eliminaUsuarioApp',
       urlDominioServidor
+    },
+    9: {
+      urlEntornoLocal,
+      urlEntornoLambda,
+      pathLambda: '/service/caradmin/dashboardInfo',
+      urlDominioServidor
     }
 
   }

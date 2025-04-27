@@ -36,7 +36,7 @@ const ZonaTrX: React.FC<IZoneProps> = () => {
         switch (redirectZone) {
             case 'USUARIO_ROOT':
                 return (
-                    <ZoneRoot infoMenuUsuario={infoMenuUsuario} setCargando={setCargando} zonaConsulta='USUARIO_ROOT' />
+                    <ZoneRoot infoMenuUsuario={infoMenuUsuario} setCargando={setCargando} zonaConsulta='ROLE_ROOT' />
                 )
             case 'ROLE_ADMIN':
                 return (

@@ -125,6 +125,17 @@ export interface IContratoRHDto {
 export interface ICursosRHDto {
     nombreCurso: string;
     fechaCurso: string;
-    estado: string;    
+    estado: string;
+}
+
+export interface IResultDashBoardInfo {
+    totalRH: string;
+    totalContratos: string;
+    tasaDeContratacion: IPieValues[]
+}
+
+export interface IPieValues {
+    name: string;
+    value: number;
 }
 

@@ -127,12 +127,12 @@ const RegistraRh: React.FC<IZoneProps> = () => {
 
     return (
         <>
-            <div className='div-style-form mt-3'>
+            <div className='div-style-form'>
                 <RegistraRhForm ref={registraRhFormRef} />
                 <hr />
-                <div className="row mb-5 mt-2">
+                <div className="row">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
-                        <div className='div-bottom-custom'>
+                        <div className='div-bottom-custom m-0'>
                             <button className='btn btn-primary bottom-custom' onClick={() => registraRH()} >Registrar RH</button>
                         </div>
                     </div>
