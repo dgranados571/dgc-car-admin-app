@@ -40,7 +40,7 @@ p {
 .div-style-form {
   margin-top: 0rem;
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 6px;
 }
 
@@ -277,6 +277,12 @@ p {
   margin-right: 1rem;
 }
 
+.dasboard-label-header-menu {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .div-lista-cursos {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -385,6 +391,23 @@ p {
   text-align: center;
 }
 
+.margin-icons {
+  margin: 0px 5px;
+}
+
+.p-info-filtros{
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.div-titulo-ds {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
 @media (min-width: 760px) {
 
   .bottom-custom {
@@ -457,6 +480,13 @@ p {
     margin-right: 1rem;
   }
 
+  .dasboard-label-header-menu {
+    display: none;
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
   .div-dashboard-content {
     position: relative;
     margin-top: 0rem;
@@ -475,6 +505,13 @@ p {
     padding: 5px;
     border-radius: 6px;
     margin-bottom: 1rem;
+  }
+
+  .div-style-form {
+    margin-top: 0rem;
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
   }
 
 }

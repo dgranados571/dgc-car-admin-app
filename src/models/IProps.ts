@@ -59,6 +59,18 @@ export interface IListaRhProps {
     setRHContract: React.Dispatch<React.SetStateAction<any>>;    
 }
 
+export interface IListaContratosRhProps {
+    ejecutaModalComponent: Function
+    setCargando: React.Dispatch<React.SetStateAction<boolean>>;
+    setRedirect: React.Dispatch<React.SetStateAction<string>>;
+    setRHContratoId: React.Dispatch<React.SetStateAction<any>>;
+}
+
+export interface IDetalleContratoRhProps {
+    rHContratoId:any
+    setRedirect: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export interface IRegistraRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
 }

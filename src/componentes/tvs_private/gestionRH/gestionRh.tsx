@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVcard, faList, faCodeFork } from '@fortawesome/free-solid-svg-icons'
 import RegistraRh from '../registraRH/registraRh'
-import ListaRh from '../listaRH/listaRh'
+
 import ContratoRH from '../registraContratoRH/contratoRh'
+import ListaRh from '../listasAppRH/listaRh'
 
 const GestionRh = () => {
 
@@ -34,7 +35,6 @@ const GestionRh = () => {
 
     return (
         <>
-            <div className='div-container'>
                 <div className="row m-0">
                     <div className="col-6 col-sm-6 col-md-4 col-lg-4 div-targer-admin-padre" >
                         <div className='div-targer-admin' onClick={() => { setRedirectZone('VIEW_LISTA_RH') }}>
@@ -66,7 +66,6 @@ const GestionRh = () => {
                         validateRedirect()
                     }
                 </div>
-            </div>
         </>
     )
 }

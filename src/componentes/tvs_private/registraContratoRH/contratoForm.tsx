@@ -3,7 +3,6 @@ import { IFormRHHandle, IListasSelect } from '../../../models/IProps'
 
 const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
 
-
     useImperativeHandle(ref, () => ({
         funcionHandle1() {
             return validateForm()
@@ -309,7 +308,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
-                        <p className='p-label-form'>Cargo: </p>                        
+                        <p className='p-label-form'>Cargo: </p>
                         {
                             <select value={cargo} onChange={(e) => setCargo(e.target.value)} className={cargoRef ? 'form-control form-control-error' : 'form-control'} >
                                 {

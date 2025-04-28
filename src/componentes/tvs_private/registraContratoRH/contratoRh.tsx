@@ -147,6 +147,7 @@ const ContratoRH: React.FC<IContratoRhProps> = ({ rHContract, setRedirectZone })
     return (
         <>
             <div className='div-style-form'>
+                <h4 >Información del recurso humano</h4>
                 <DetalleRhInfo rHContract={rHContract} />
                 <hr />
                 <ContratoForm ref={contratoFormRef} />

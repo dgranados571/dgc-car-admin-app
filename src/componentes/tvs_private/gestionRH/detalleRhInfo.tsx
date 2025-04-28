@@ -5,7 +5,6 @@ const DetalleRhInfo: React.FC<IDetalleRhInfoProps> = ({ rHContract }) => {
 
     return (
         <>
-            <h4 >Información del recurso humano</h4>
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
                     <div className='div-form'>
@@ -16,13 +15,13 @@ const DetalleRhInfo: React.FC<IDetalleRhInfoProps> = ({ rHContract }) => {
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
                     <div className='div-form'>
                         <p className='p-label-form'> No. Identificación: </p>
-                        <p> {rHContract.numero_identificacion} </p>
+                        <p> {rHContract.numeroIdentificacion} </p>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
                     <div className='div-form'>
                         <p className='p-label-form'>Correo personal:</p>
-                        <p> {rHContract.correo_personal} </p>
+                        <p> {rHContract.correoPersonal} </p>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
@@ -34,13 +33,13 @@ const DetalleRhInfo: React.FC<IDetalleRhInfoProps> = ({ rHContract }) => {
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
                     <div className='div-form'>
                         <p className='p-label-form'>Fecha de nacimiento: </p>
-                        <p> {rHContract.fecha_nacimiento} </p>
+                        <p> {rHContract.fechaNacimiento} </p>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-12 col-lg-4" >
                     <div className='div-form'>
                         <p className='p-label-form'>Perfil: </p>
-                        <p> {rHContract.perfil_profesional} </p>
+                        <p> {rHContract.perfilProfesional} </p>
                     </div>
                 </div>
             </div>

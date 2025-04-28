@@ -4,7 +4,7 @@ import { AuthServices } from '../../../services/authServices'
 import Modal from '../../tvs/modal/modal'
 import { Cargando } from '../../tvs/loader/cargando'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCodeFork } from '@fortawesome/free-solid-svg-icons'
+import { faCodeFork, faEye } from '@fortawesome/free-solid-svg-icons'
 
 const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) => {
 
@@ -66,6 +66,7 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
   return (
     <>
       <div className='div-style-form'>
+        
         {
           rHList.length > 0 ?
             <>
@@ -102,22 +103,22 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
                               <p className=''>{rHId.nombres} {rHId.apellidos}</p>
                             </td>
                             <td className='td-info'>
-                              <p className=''>{rHId.numero_identificacion}</p>
+                              <p className=''>{rHId.numeroIdentificacion}</p>
                             </td>
                             <td className='td-info'>
                               <p className=''>{rHId.celular}</p>
                             </td>
                             <td className='td-info'>
-                              <p className=''> {rHId.correo_personal} </p>
+                              <p className=''> {rHId.correoPersonal} </p>
                             </td>
                             <td className='td-info'>
-                              <p className=''> {rHId.perfil_profesional} </p>
+                              <p className=''> {rHId.perfilProfesional} </p>
                             </td>
                             <td className='td-info'>
-                              <div className='d-flex'>
-                                <button className='btn btn-link bottom-custom-link' onClick={() => { registrarContrato(rHId) }}>
-                                  <FontAwesomeIcon className='icons-table-ds' icon={faCodeFork} /><p className='margin-icons'>Asociar contrato</p>
-                                </button>
+                              <div className='mt-3'>
+                                <button className='btn btn-link bottom-custom-link p-0' onClick={() => { registrarContrato(rHId) }}>
+                                  <FontAwesomeIcon className='icons-table-ds' icon={faCodeFork} /><p className='margin-icons'>Contrato</p>
+                                </button>                                
                               </div>
                             </td>
                           </tr>

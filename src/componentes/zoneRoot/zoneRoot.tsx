@@ -7,6 +7,7 @@ import { faUsers, faBars, faPieChart, faVcard } from '@fortawesome/free-solid-sv
 import UsuariosApp from '../tvs_private/usuarios/usuariosApp'
 import Dashboard from '../zonePublic/dashboard'
 import GestionRh from '../tvs_private/gestionRH/gestionRh'
+import ListaContratosRhPadre from '../tvs_private/listasAppRH/listaContratosRhPadre'
 
 const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zonaConsulta }) => {
 
@@ -61,6 +62,7 @@ const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zona
                                     <div className='div-dashboard-header-busqueda-padre'>
                                         <div className="div-dashboard-header-busqueda">
                                             <FontAwesomeIcon icon={faBars} className='dasboard-icon-header-menu' onClick={() => setOpenMenu(true)} />
+                                            <h4 className="dasboard-label-header-menu">Gestión RH</h4>
                                         </div>
                                     </div>
                                     <div className="div-dashboard-content">
@@ -82,7 +84,8 @@ const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zona
                                 <div className="col-12 col-sm-12 col-md-12 col-lg-9" >
                                     <div className='div-dashboard-header-busqueda-padre'>
                                         <div className="div-dashboard-header-busqueda">
-                                            <FontAwesomeIcon icon={faBars} className='dasboard-icon-header-menu' onClick={() => setOpenMenu(true)} />
+                                            <FontAwesomeIcon icon={faBars} className='dasboard-icon-header-menu' onClick={() => setOpenMenu(true)} />                                                                                    
+                                            <h4 className="dasboard-label-header-menu">Usuarios</h4>
                                         </div>
                                     </div>
                                     <div className="div-dashboard-content">
@@ -105,11 +108,14 @@ const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zona
                                     <div className='div-dashboard-header-busqueda-padre'>
                                         <div className="div-dashboard-header-busqueda">
                                             <FontAwesomeIcon icon={faBars} className='dasboard-icon-header-menu' onClick={() => setOpenMenu(true)} />
+                                            <h4 className="dasboard-label-header-menu">Dashboard</h4>
                                         </div>
                                     </div>
                                     <div className="div-dashboard-content">
                                         <div className="div-style-form">
                                             <Dashboard />
+                                            <hr/>
+                                            <ListaContratosRhPadre />
                                         </div>
                                     </div>
                                 </div>
