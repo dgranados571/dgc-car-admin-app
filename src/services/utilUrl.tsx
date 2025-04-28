@@ -82,7 +82,7 @@ export const UtilUrl = () => {
   }
 
   return {
-    apiLambda: false,
+    apiLambda: true,
     url
   }
 
