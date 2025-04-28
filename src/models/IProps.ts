@@ -50,6 +50,10 @@ export interface IZoneRootProps {
     zonaConsulta: string
 }
 
+export interface IZoneAdminProps {
+    infoMenuUsuario: IUsuarioSession
+}
+
 export interface IListaRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
     setRHContract: React.Dispatch<React.SetStateAction<any>>;    

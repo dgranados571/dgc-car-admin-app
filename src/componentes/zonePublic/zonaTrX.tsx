@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IZoneProps } from '../../models/IProps';
 import ZoneRoot from '../zoneRoot/zoneRoot';
 import { Cargando } from '../tvs/loader/cargando';
+import ZoneAdmin from '../zoneAdmin/zoneAdmin';
 
 const ZonaTrX: React.FC<IZoneProps> = () => {
 
@@ -40,7 +41,7 @@ const ZonaTrX: React.FC<IZoneProps> = () => {
                 )
             case 'ROLE_ADMIN':
                 return (
-                    <>ZONA ADMINISTRATIVA</>
+                    <ZoneAdmin infoMenuUsuario={infoMenuUsuario} />
                 )
             default:
                 return (
