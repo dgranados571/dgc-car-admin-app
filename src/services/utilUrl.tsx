@@ -3,7 +3,7 @@ export const UtilUrl = () => {
 
   const urlEntornoLocal = 'http://localhost:8082';
   const urlEntornoLambda = 'https://cgmoazbtxd.execute-api.us-east-1.amazonaws.com/Stage/unadmin';
-  const urlDominioServidor = 'http://34.207.82.37:8082';
+  const urlDominioServidor = 'http://44.200.252.58:8082';
 
   const url: { [key: number]: { urlEntornoLambda: string; urlEntornoLocal: string; urlDominioServidor: string; pathLambda: string; } } = {
     1: {
@@ -76,7 +76,7 @@ export const UtilUrl = () => {
   }
 
   return {
-    apiLambda: false,
+    apiLambda: true,
     url
   }
 
