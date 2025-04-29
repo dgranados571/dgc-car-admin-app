@@ -77,6 +77,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         { value: 'RADICADOR', label: 'Radicador' },
         { value: 'SUPERVISOR_CONSULTA_EXTERNA', label: 'Supervisor - consulta externa' },
         { value: 'TECNICO_AUDITORIA', label: 'Tecnico auditoria' },
+        { value: 'OTRO', label: 'Otro' },
     ];
 
 
@@ -85,6 +86,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [municipio, setMunicipio] = useState('INITIAL');
     const [fechaInicio, setFechaInicio] = useState('');
     const [cargo, setCargo] = useState('INITIAL');
+    const [cargoCustom, setCargoCustom] = useState('');
     const [area, setArea] = useState('');
     const [sueldo, setSueldo] = useState('');
     const [auxTransporte, setAuxTransporte] = useState('');
@@ -96,6 +98,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [municipioRef, setMunicipioRef] = useState(false);
     const [fechaInicioRef, setFechaInicioRef] = useState(false);
     const [cargoRef, setCargoRef] = useState(false);
+    const [cargoCustomRef, setCargoCustomRef] = useState(false);
     const [areaRef, setAreaRef] = useState(false);
     const [sueldoRef, setSueldoRef] = useState(false);
     const [auxTransporteRef, setAuxTransporteRef] = useState(false);
@@ -106,6 +109,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [municipiosList, setMunicipiosList] = useState<IListasSelect[]>([]);
 
     const [disableInputZona, setDisableInputZona] = useState(false);
+    const [showInputCargo, setShowInputCargo] = useState(false);
 
     const resetForm = () => {
         setContratoCon('INITIAL');
@@ -219,19 +223,29 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
             formValidado.push('fechaInicio');
             setFechaInicioRef(true)
         }
+
         setCargoRef(false)
+        setCargoCustomRef(false)
         setAreaRef(false)
         setSueldoRef(false)
         setAuxTransporteRef(false)
         setBonoRef(false)
         setNoContratoRef(false)
         if (formValidado.length === 0) {
+            let cargoValue = ''
+            if (cargo !== 'INITIAL') {
+                if (cargo === 'OTRO') {
+                    cargoValue = cargoCustom
+                } else {
+                    cargoValue = cargo
+                }
+            }
             return {
                 prop0: constratoCon,
                 prop1: zona,
                 prop2: municipio,
                 prop3: fechaInicio,
-                prop4: cargo === 'INITIAL' ? '' : cargo,
+                prop4: cargoValue,
                 prop5: area,
                 prop6: sueldo,
                 prop7: auxTransporte,
@@ -241,6 +255,14 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         } else {
             formValidado.splice(0, formValidado.length)
             return null
+        }
+    }
+
+    const evaluateCargo = (cargo: string) => {
+        setCargo(cargo)
+        setShowInputCargo(false)
+        if (cargo === 'OTRO') {
+            setShowInputCargo(true)
         }
     }
 
@@ -310,7 +332,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                     <div className='div-form'>
                         <p className='p-label-form'>Cargo: </p>
                         {
-                            <select value={cargo} onChange={(e) => setCargo(e.target.value)} className={cargoRef ? 'form-control form-control-error' : 'form-control'} >
+                            <select value={cargo} onChange={(e) => evaluateCargo(e.target.value)} className={cargoRef ? 'form-control form-control-error' : 'form-control'} >
                                 {
                                     cargosList.map((key, i) => {
                                         return (
@@ -319,6 +341,21 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                                     })
                                 }
                             </select>
+                        }
+                    </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                    <div className='div-form'>                        
+                    <p className='p-label-form'>Indique el cargo: </p>
+                        {
+                            showInputCargo ?
+                                <>          
+                                    <input type="text" value={cargoCustom} onChange={(e) => setCargoCustom(e.target.value)} className={cargoCustomRef ? 'form-control form-control-error' : 'form-control'} />
+                                </>
+                                :
+                                <>
+                                <input type="text" disabled className={cargoCustomRef ? 'form-control form-control-error' : 'form-control'} />
+                                </>
                         }
                     </div>
                 </div>
