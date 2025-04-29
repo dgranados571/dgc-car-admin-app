@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IGenericResponse, IListaContratosRhProps, IPropsModal } from '../../../models/IProps'
+import { IGenericResponse, IListaContratosRhProps } from '../../../models/IProps'
 import { AuthServices } from '../../../services/authServices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
@@ -111,7 +111,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                 <p className='p-label-form'>Fecha inicio</p>
                                             </td>
                                             <td className='td-info'>
-                                                <p className='p-label-form'>Estado</p>
+                                                <p className='p-label-form'>Cargo</p>
                                             </td>
                                             <td className='td-info'>
                                                 <p className='p-label-form'>Acciones</p>

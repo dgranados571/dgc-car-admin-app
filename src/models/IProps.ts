@@ -84,6 +84,14 @@ export interface IDetalleRhInfoProps {
     rHContract: any;
 }
 
+export interface IDetalleContratoRhInfoProps {
+    rHContract: any;
+}
+
+export interface IDetalleCursosRhInfoProps {
+    rHContract: ICursosRHDto[];
+}
+
 export interface IUsuariosAppProps {
     setCargando: React.Dispatch<React.SetStateAction<boolean>>;
     zonaConsulta: string
@@ -160,6 +168,9 @@ export interface ICursosRHDto {
     nombreCurso: string;
     fechaCurso: string;
     estado: string;
+
+    fechaVencimiento?: string;
+    diasPorVencer?: string;
 }
 
 export interface IResultDashBoardInfo {
