@@ -79,7 +79,7 @@ const ContratoRH: React.FC<IContratoRhProps> = ({ rHContract, setRedirectZone })
         }));
 
         const body = {
-            "recursoHumano": rHContract.id,
+            "recursoHumano": rHContract.idRh,
             "contratoRH": infoForm2,
             "cursosRH": infoForm3,
         }
@@ -148,7 +148,7 @@ const ContratoRH: React.FC<IContratoRhProps> = ({ rHContract, setRedirectZone })
         <>
             <div className='div-style-form'>
                 <h4 >Información Personal</h4>
-                <DetalleRhInfo rHContract={rHContract} />
+                <DetalleRhInfo rHContract={rHContract.recursoHumanoDto} />
                 <hr />
                 <ContratoForm ref={contratoFormRef} />
                 <hr />

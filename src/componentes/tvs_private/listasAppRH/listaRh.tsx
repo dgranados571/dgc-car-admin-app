@@ -100,19 +100,19 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
                         return (
                           <tr key={key} className='tr-tablet'>
                             <td className='td-info'>
-                              <p className=''>{rHId.nombres} {rHId.apellidos}</p>
+                              <p className=''>{rHId.recursoHumanoDto.nombres} {rHId.recursoHumanoDto.apellidos}</p>
                             </td>
                             <td className='td-info'>
-                              <p className=''>{rHId.numeroIdentificacion}</p>
+                              <p className=''>{rHId.recursoHumanoDto.numeroIdentificacion}</p>
                             </td>
                             <td className='td-info'>
-                              <p className=''>{rHId.celular}</p>
+                              <p className=''>{rHId.recursoHumanoDto.celular}</p>
                             </td>
                             <td className='td-info'>
-                              <p className=''> {rHId.correoPersonal} </p>
+                              <p className=''> {rHId.recursoHumanoDto.correoPersonal} </p>
                             </td>
                             <td className='td-info'>
-                              <p className=''> {rHId.perfilProfesional} </p>
+                              <p className=''> {rHId.recursoHumanoDto.perfilProfesional} </p>
                             </td>
                             <td className='td-info'>
                               <div className='mt-3'>

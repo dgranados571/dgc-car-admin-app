@@ -108,6 +108,9 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                 <p className='p-label-form'>Nombre</p>
                                             </td>
                                             <td className='td-info'>
+                                                <p className='p-label-form'>No documento</p>
+                                            </td>
+                                            <td className='td-info'>
                                                 <p className='p-label-form'>Fecha inicio</p>
                                             </td>
                                             <td className='td-info'>
@@ -131,6 +134,9 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                         </td>
                                                         <td className='td-info'>
                                                             <p className=''>{rHContratoId.recursoHumanoDto.nombres} {rHContratoId.recursoHumanoDto.apellidos}</p>
+                                                        </td>
+                                                        <td className='td-info'>
+                                                            <p className=''>{rHContratoId.recursoHumanoDto.numeroIdentificacion}</p>
                                                         </td>
                                                         <td className='td-info'>
                                                             <p className=''> {rHContratoId.contratoRHDto.fechaInicio} </p>
