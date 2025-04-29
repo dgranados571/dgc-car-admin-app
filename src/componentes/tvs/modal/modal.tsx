@@ -40,6 +40,37 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
         }
     }
 
+    const detalleInfoRh = () => {
+        return (
+            <>
+                <div className='div-info-item'>
+                    <p className='p-label-form-text m-1'>No documento: </p>
+                    <p className='p-label-form m-1'>{propsModal.resultForm1.prop3} </p>
+                </div>
+                <div className='div-info-item'>
+                    <p className='p-label-form-text m-1'>Fecha de nacimiento: </p>
+                    <p className='p-label-form m-1'>{propsModal.resultForm1.prop2} </p>
+                </div>
+                <div className='div-info-item'>
+                    <p className='p-label-form-text m-1'>Correo personal: </p>
+                    <p className='p-label-form m-1'>{propsModal.resultForm1.prop4} </p>
+                </div>
+                <div className='div-info-item'>
+                    <p className='p-label-form-text m-1'>Correo corporativo: </p>
+                    <p className='p-label-form m-1'>{propsModal.resultForm1.prop5} </p>
+                </div>
+                <div className='div-info-item'>
+                    <p className='p-label-form-text m-1'>Celular: </p>
+                    <p className='p-label-form m-1'>{propsModal.resultForm1.prop6} </p>
+                </div>
+                <div className='div-info-item'>
+                    <p className='p-label-form-text m-1'>Perfil profesional: </p>
+                    <p className='p-label-form m-1'>{propsModal.resultForm1.prop7} </p>
+                </div>
+            </>
+        )
+    }
+
     const showModal = () => {
         switch (tipoModal) {
             case 'MODAL_RESUMEN_FORM':
@@ -56,30 +87,9 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                             <p className='p-label-form-text m-1'>Nombre: </p>
                                             <p className='p-label-form m-1'>{propsModal.resultForm1.prop1} {propsModal.resultForm1.prop0} </p>
                                         </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>No documento: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm1.prop3} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Fecha de nacimiento: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm1.prop2} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Correo personal: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm1.prop4} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Correo corporativo: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm1.prop5} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Celular: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm1.prop6} </p>
-                                        </div>
-                                        <div className='div-info-item'>
-                                            <p className='p-label-form-text m-1'>Perfil profesional: </p>
-                                            <p className='p-label-form m-1'>{propsModal.resultForm1.prop7} </p>
-                                        </div>
+                                        {
+                                            detalleInfoRh()
+                                        }
                                         <hr />
                                         <p className='p-label-form'>Es correcta la información?:</p>
                                         <div className='d-flex justify-content-around mt-3'>
@@ -149,6 +159,29 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                         <div className='d-flex justify-content-around mt-3'>
                                             <button className='btn btn-secondary bottom-custom-secondary' onClick={() => modalNo()}>Cancelar</button>
                                             <button className='btn btn-primary bottom-custom' onClick={() => modalSi()} >Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
+            case 'MODAL_DETALLE_INFO':
+                return (
+                    <>
+                        <div className='div-modal-active'>
+                            <div className='div-content-element-padre'>
+                                <div className='div-content-element'>
+                                    <div className='div-size-content'>
+                                        <div className="d-flex justify-content-between">
+                                            <h4>{propsModal.resultForm1.prop1} {propsModal.resultForm1.prop0}</h4>
+                                        </div>
+                                        {
+                                            detalleInfoRh()
+                                        }
+                                        <hr />
+                                        <div className='d-flex justify-content-around mt-3'>
+                                            <button className='btn btn-secondary bottom-custom-secondary' onClick={() => modalNo()}>Volver</button>
                                         </div>
                                     </div>
                                 </div>

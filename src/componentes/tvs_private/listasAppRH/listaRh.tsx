@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IGenericResponse, IListaRhProps, IPropsModal } from '../../../models/IProps'
+import { IGenericResponse, IListaRhProps, IPropsModal, IPropsResultForm } from '../../../models/IProps'
 import { AuthServices } from '../../../services/authServices'
 import Modal from '../../tvs/modal/modal'
 import { Cargando } from '../../tvs/loader/cargando'
@@ -45,6 +45,27 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
     setRHContract(rHId)
   }
 
+  const verDetalleRh = async (rHId: any) => {
+    const propsModalInfo: IPropsResultForm = {
+      prop0: rHId.recursoHumanoDto.apellidos,
+      prop1: rHId.recursoHumanoDto.nombres,
+      prop2: rHId.recursoHumanoDto.fechaNacimiento,
+      prop3: rHId.recursoHumanoDto.numeroIdentificacion,
+      prop4: rHId.recursoHumanoDto.correoPersonal,
+      prop5: rHId.recursoHumanoDto.correoCorporativo,
+      prop6: rHId.recursoHumanoDto.celular,
+      prop7: rHId.recursoHumanoDto.perfilProfesional,
+    }
+    setPropsModalForm({
+      resultForm1: propsModalInfo,
+      resultForm2: {},
+      resultForm3: []
+    })
+    setTipoModal('MODAL_DETALLE_INFO')
+    setModalOpen(true)
+
+  }
+
   const ejecutaModalComponent = (titulo: string, descripicion: string, tipoModal: string) => {
     setPropsModalForm({
       resultForm1: {
@@ -66,7 +87,7 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
   return (
     <>
       <div className='div-style-form'>
-        
+
         {
           rHList.length > 0 ?
             <>
@@ -118,7 +139,10 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
                               <div className='mt-3'>
                                 <button className='btn btn-link bottom-custom-link p-0' onClick={() => { registrarContrato(rHId) }}>
                                   <FontAwesomeIcon className='icons-table-ds' icon={faCodeFork} /><p className='margin-icons'>Contrato</p>
-                                </button>                                
+                                </button>
+                                <button className='btn btn-link bottom-custom-link p-0' onClick={() => { verDetalleRh(rHId) }}>
+                                  <FontAwesomeIcon className='icons-table-ds' icon={faEye} /><p className='margin-icons'>Detalle</p>
+                                </button>
                               </div>
                             </td>
                           </tr>
