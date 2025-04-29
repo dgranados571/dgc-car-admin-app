@@ -10,7 +10,7 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
     return (
         <>
             <div className='div-titulo-ds'>
-            <h4 >Información personal:</h4>
+                <h4 >Información personal:</h4>
                 <button className='btn btn-link bottom-custom-link' onClick={() => setRedirect('VISTA_LISTA_CONTRATO_RH')}>
                     <FontAwesomeIcon className='icons-table-ds' icon={faRotateLeft} /><p className='margin-icons'>Volver</p>
                 </button>
@@ -18,7 +18,7 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
             <DetalleRhInfo rHContract={rHContratoId.recursoHumanoDto} />
             <hr />
             <h4 >Detalle de la contratación:</h4>
-            <DetalleContratoRhInfo rHContract={rHContratoId.contratoRHDto}/>
+            <DetalleContratoRhInfo rHContract={rHContratoId.contratoRHDto} />
             <hr />
             <h4 >Detalle de cursos:</h4>
             <DetalleCursosRhInfo rHContract={rHContratoId.cursosRHDto} />

@@ -70,18 +70,18 @@ const Dashboard = () => {
                 <div className="col-6 col-sm-5 col-md-4 col-lg-3" >
                     <div className="div-total1-dashboard">
                         <FontAwesomeIcon className='icon-menu-principal' icon={faUsers} />
-                        <div className="div-elementos-total1">
+                        <div className="div-elementos-total1">                            
+                            <p className='p-label-dashboard'>Recursos en operación:</p>
                             <p className='p-info-total1'>{resultDashBoard.totalRH} </p>
-                            <p>Recursos en operación</p>
                         </div>
                     </div>
                 </div>
                 <div className="col-6 col-sm-5 col-md-4 col-lg-3" >
                     <div className="div-total1-dashboard">
                         <FontAwesomeIcon className='icon-menu-principal' icon={faBriefcase} />
-                        <div className="div-elementos-total1">
+                        <div className="div-elementos-total1">                            
+                            <p className='p-label-dashboard'>Contratos de servicios:</p>
                             <p className='p-info-total1'>2</p>
-                            <p>Contratos de servicios</p>
                         </div>
                     </div>
                 </div>

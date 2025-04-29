@@ -3,7 +3,6 @@ import { IPropsModal } from '../../../models/IProps'
 import Modal from '../../tvs/modal/modal'
 import { Cargando } from '../../tvs/loader/cargando'
 import ListaContratosRh from './listaContratosRh'
-import DetalleRhInfo from '../gestionRH/detalleRhInfo'
 import DetalleContratoRh from './detalleContratoRh'
 
 const ListaContratosRhPadre = () => {

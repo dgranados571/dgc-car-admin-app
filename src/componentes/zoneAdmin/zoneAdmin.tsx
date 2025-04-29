@@ -5,6 +5,7 @@ import { faBars, faPieChart, faVcard } from '@fortawesome/free-solid-svg-icons'
 import MenuLateralComponent from '../tvs/headerLateral/menuLateral';
 import GestionRh from '../tvs_private/gestionRH/gestionRh';
 import Dashboard from '../zonePublic/dashboard';
+import ListaContratosRhPadre from '../tvs_private/listasAppRH/listaContratosRhPadre';
 
 const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario }) => {
 
@@ -53,6 +54,7 @@ const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario }) => {
                                     <div className='div-dashboard-header-busqueda-padre'>
                                         <div className="div-dashboard-header-busqueda">
                                             <FontAwesomeIcon icon={faBars} className='dasboard-icon-header-menu' onClick={() => setOpenMenu(true)} />
+                                            <h4 className="dasboard-label-header-menu">Gestión RH</h4>
                                         </div>
                                     </div>
                                     <div className="div-dashboard-content">
@@ -75,11 +77,14 @@ const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario }) => {
                                     <div className='div-dashboard-header-busqueda-padre'>
                                         <div className="div-dashboard-header-busqueda">
                                             <FontAwesomeIcon icon={faBars} className='dasboard-icon-header-menu' onClick={() => setOpenMenu(true)} />
+                                            <h4 className="dasboard-label-header-menu">Dashboard</h4>
                                         </div>
                                     </div>
                                     <div className="div-dashboard-content">
                                         <div className="div-style-form">
                                             <Dashboard />
+                                            <hr />
+                                            <ListaContratosRhPadre />
                                         </div>
                                     </div>
                                 </div>
