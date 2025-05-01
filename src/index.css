@@ -397,7 +397,7 @@ p {
   margin: 0px 5px;
 }
 
-.p-info-filtros{
+.p-info-filtros {
   display: flex;
   align-items: flex-end;
   height: 100%;
@@ -415,6 +415,33 @@ p {
   color: #1c1d25;
   font-weight: 500;
   margin-left: 8px;
+}
+
+.div-perfil-registra-rh {
+  display: flex;
+  flex-direction: column;
+}
+
+.div-perfil-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.div-perfil-image {
+  width: 100%;
+  text-align: center;
+}
+
+.img-perfil-rh {
+  object-fit: cover;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+
 }
 
 @media (min-width: 760px) {
@@ -532,6 +559,11 @@ p {
     color: #1c1d25;
     font-weight: 500;
     margin-left: 8px;
+  }
+
+  .div-perfil-registra-rh {
+    display: flex;
+    flex-direction: row;
   }
 
 }
