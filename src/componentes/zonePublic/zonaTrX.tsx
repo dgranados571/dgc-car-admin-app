@@ -41,7 +41,7 @@ const ZonaTrX: React.FC<IZoneProps> = () => {
                 )
             case 'ROLE_ADMIN':
                 return (
-                    <ZoneAdmin infoMenuUsuario={infoMenuUsuario} />
+                    <ZoneAdmin infoMenuUsuario={infoMenuUsuario} zonaConsulta='ROLE_ADMIN'/>
                 )
             default:
                 return (

@@ -441,7 +441,12 @@ p {
   border-radius: 5px;
   margin-top: 8px;
   margin-bottom: 8px;
+}
 
+.div-titulo-ch-detalle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media (min-width: 760px) {

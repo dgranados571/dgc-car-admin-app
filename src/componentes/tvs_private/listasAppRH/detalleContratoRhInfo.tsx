@@ -7,10 +7,25 @@ const DetalleContratoRhInfo: React.FC<IDetalleContratoRhInfoProps> = ({ rHContra
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
                     <div className='div-form'>
-                        <p className='p-label-form'> # Contrato: </p>
-                        <p> {rHContract.noContrato} </p>
+                        <p className='p-label-form'>Tipo contrato: </p>
+                        <p> {rHContract.tipoContrato} </p>
                     </div>
                 </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
+                    <div className='div-form'>
+                        <p className='p-label-form'>Fecha de inicio: </p>
+                        <p> {rHContract.fechaInicio} </p>
+                    </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-12 col-lg-4" >
+                    <div className='div-form'>
+                        <p className='p-label-form'>Fecha finalización: </p>
+                        <p> {rHContract.fechaFinalizacion} </p>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div className="row">
                 <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
                     <div className='div-form'>
                         <p className='p-label-form'>Contrato: </p>
@@ -27,18 +42,6 @@ const DetalleContratoRhInfo: React.FC<IDetalleContratoRhInfoProps> = ({ rHContra
                     <div className='div-form'>
                         <p className='p-label-form'>Municipio: </p>
                         <p> {rHContract.municipio} </p>
-                    </div>
-                </div>
-                <div className="col-12 col-sm-12 col-md-6 col-lg-4" >
-                    <div className='div-form'>
-                        <p className='p-label-form'>Fecha de inicio: </p>
-                        <p> {rHContract.fechaInicio} </p>
-                    </div>
-                </div>
-                <div className="col-12 col-sm-12 col-md-12 col-lg-4" >
-                    <div className='div-form'>
-                        <p className='p-label-form'>Fecha finalización: </p>
-                        <p> {rHContract.fechaFinalizacion} </p>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-12 col-lg-4" >

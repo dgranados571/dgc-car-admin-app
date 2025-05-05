@@ -7,7 +7,7 @@ import GestionRh from '../tvs_private/gestionRH/gestionRh';
 import Dashboard from '../zonePublic/dashboard';
 import ListaContratosRhPadre from '../tvs_private/listasAppRH/listaContratosRhPadre';
 
-const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario }) => {
+const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario, zonaConsulta }) => {
 
     const [openMenu, setOpenMenu] = useState(false);
 
@@ -84,7 +84,7 @@ const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario }) => {
                                         <div className="div-style-form">
                                             <Dashboard />
                                             <hr />
-                                            <ListaContratosRhPadre />
+                                            <ListaContratosRhPadre zonaConsulta={zonaConsulta} />
                                         </div>
                                     </div>
                                 </div>

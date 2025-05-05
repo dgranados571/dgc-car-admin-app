@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { IGenericResponse, IListaContratosRhProps } from '../../../models/IProps'
 import { AuthServices } from '../../../services/authServices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalComponent, setCargando, setRedirect, setRHContratoId }) => {
+const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalComponent, setCargando, setRedirect, setRHContratoId, zonaConsulta, setControlExecute, controlExecute }) => {
+
+    const rolesPermitenEliminar = ['ROLE_ROOT']
+    const [showBotomElimina, setShowBotomElimina] = useState(false);
 
     const contratosCon = [
         { value: 'INITIAL', label: 'Seleccione' },
@@ -14,11 +17,13 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
 
     const [contratoFiltro, setContratoFiltro] = useState('INITIAL')
     const [identificacionFiltro, setIdentificacionFiltro] = useState('')
-    const [controlExecute, setControlExecute] = useState(false)
 
     const [contratosRhList, setContratosRhList] = useState<any[]>([])
 
     useEffect(() => {
+        if (rolesPermitenEliminar.includes(zonaConsulta)) {
+            setShowBotomElimina(true)
+        }
         getRHContratosInfo()
     }, [controlExecute])
 
@@ -52,6 +57,14 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         setContratoFiltro('INITIAL')
         setIdentificacionFiltro('')
         setControlExecute(!controlExecute)
+    }
+
+    const eliminarContrato = (rHContratoId: any) => {
+        const idPropExecute = {
+            "action": "ELIMINAR",
+            "idProp": rHContratoId.idContratoRh,
+        }
+        ejecutaModalComponent('Advertencia: Eliminación del contrato', 'Eliminar este contrato es una acción irreversible. Todos los datos asociados serán eliminados permanentemente del sistema y no podrán ser recuperados. Esto podría afectar procesos relacionados a la gestión contractual. Por favor, asegúrate de haber revisado toda la información antes de proceder.', 'MODAL_CONTROL_2', idPropExecute)
     }
 
     return (
@@ -99,9 +112,6 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                     <thead>
                                         <tr>
                                             <td className='td-info'>
-                                                <p className='p-label-form'>Id</p>
-                                            </td>
-                                            <td className='td-info'>
                                                 <p className='p-label-form'>Contrato</p>
                                             </td>
                                             <td className='td-info'>
@@ -111,10 +121,16 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                 <p className='p-label-form'>No documento</p>
                                             </td>
                                             <td className='td-info'>
+                                                <p className='p-label-form'>Tipo contrato</p>
+                                            </td>
+                                            <td className='td-info'>
                                                 <p className='p-label-form'>Fecha inicio</p>
                                             </td>
                                             <td className='td-info'>
-                                                <p className='p-label-form'>Cargo</p>
+                                                <p className='p-label-form'>Fecha finalización</p>
+                                            </td>
+                                            <td className='td-info'>
+                                                <p className='p-label-form'>Estado</p>
                                             </td>
                                             <td className='td-info'>
                                                 <p className='p-label-form'>Acciones</p>
@@ -127,9 +143,6 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                 return (
                                                     <tr key={key} className='tr-tablet'>
                                                         <td className='td-info'>
-                                                            <p className=''>{rHContratoId.idContratoRh}</p>
-                                                        </td>
-                                                        <td className='td-info'>
                                                             <p className=''>{rHContratoId.contratoRHDto.contrato}</p>
                                                         </td>
                                                         <td className='td-info'>
@@ -139,17 +152,33 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                             <p className=''>{rHContratoId.recursoHumanoDto.numeroIdentificacion}</p>
                                                         </td>
                                                         <td className='td-info'>
+                                                            <p className=''> {rHContratoId.contratoRHDto.tipoContrato} </p>
+                                                        </td>
+                                                        <td className='td-info'>
                                                             <p className=''> {rHContratoId.contratoRHDto.fechaInicio} </p>
                                                         </td>
                                                         <td className='td-info'>
-                                                            <p className=''> {rHContratoId.contratoRHDto.cargo} </p>
+                                                            <p className=''> {rHContratoId.contratoRHDto.fechaFinalizacion} </p>
                                                         </td>
                                                         <td className='td-info'>
-                                                            <div className='mt-3'>
+                                                            <p className=''> {rHContratoId.contratoRHDto.estado} </p>
+                                                        </td>
+                                                        <td className='td-info'>
+                                                            <div className=''>
                                                                 <button className='btn btn-link bottom-custom-link p-0' onClick={() => detalleContrato(rHContratoId)}>
                                                                     <FontAwesomeIcon className='icons-table-ds' icon={faEye} /><p className='margin-icons'>Detalle</p>
                                                                 </button>
                                                             </div>
+                                                            {
+                                                                showBotomElimina ?
+                                                                    <>
+                                                                        <button className='btn btn-link bottom-custom-link p-0' onClick={() => eliminarContrato(rHContratoId)}>
+                                                                            <FontAwesomeIcon className='icons-table-ds' icon={faTrash} /><p className='margin-icons'>Eliminar</p>
+                                                                        </button>
+                                                                    </>
+                                                                    :
+                                                                    <></>
+                                                            }
                                                         </td>
                                                     </tr>
                                                 )

@@ -1,6 +1,7 @@
 import React from 'react'
 import './modal.css'
 import { IListasCursos, IModalProps } from '../../../models/IProps'
+import DetalleContratoRhInfo from '../../tvs_private/listasAppRH/detalleContratoRhInfo'
 
 const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal }) => {
 
@@ -71,6 +72,28 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
         )
     }
 
+    const detalleInfoContractsRh = () => {
+        if (!propsModal.rHContracts || propsModal.rHContracts.length === 0) {
+            return (
+                <>
+                    <hr />
+                    <p className='p-label-form m-0'>Sin registros de contratos</p>
+                </>
+            )
+        }
+        return propsModal.rHContracts.map((rHContratoId) => (
+            <div key={rHContratoId.noContrato}>
+                <hr />
+                <div className="div-titulo-ch-detalle">
+                    <h4>Detalle de la contratación # {rHContratoId.noContrato}</h4>
+                    <h4>{rHContratoId.estado}</h4>
+                </div>
+                <DetalleContratoRhInfo rHContract={rHContratoId} />
+                <hr />
+            </div>
+        ));
+    };
+
     const showModal = () => {
         switch (tipoModal) {
             case 'MODAL_RESUMEN_FORM':
@@ -112,6 +135,7 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                         <div className="d-flex justify-content-between">
                                             <h4>Resumen de registro contrato</h4>
                                         </div>
+                                        <hr />
                                         <div className='div-info-item'>
                                             <p className='p-label-form-text m-1'>Contrato: </p>
                                             <p className='p-label-form m-1'>{propsModal.resultForm2.prop0} </p>
@@ -124,9 +148,19 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                             <p className='p-label-form-text m-1'>Municipio: </p>
                                             <p className='p-label-form m-1'>{propsModal.resultForm2.prop2} </p>
                                         </div>
+                                        <hr />
+                                        <h4>Detalle del contrato</h4>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Tipo Contrato: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop10} </p>
+                                        </div>
                                         <div className='div-info-item'>
                                             <p className='p-label-form-text m-1'>Fecha de inicio: </p>
                                             <p className='p-label-form m-1'>{propsModal.resultForm2.prop3} </p>
+                                        </div>
+                                        <div className='div-info-item'>
+                                            <p className='p-label-form-text m-1'>Fecha de finalización: </p>
+                                            <p className='p-label-form m-1'>{propsModal.resultForm2.prop11} </p>
                                         </div>
                                         <div className='div-info-item'>
                                             <p className='p-label-form-text m-1'>Cargo: </p>
@@ -179,7 +213,9 @@ const Modal: React.FC<IModalProps> = ({ tipoModal, modalSi, modalNo, propsModal 
                                         {
                                             detalleInfoRh()
                                         }
-                                        <hr />
+                                        {
+                                            detalleInfoContractsRh()
+                                        }
                                         <div className='d-flex justify-content-around mt-3'>
                                             <button className='btn btn-secondary bottom-custom-secondary' onClick={() => modalNo()}>Volver</button>
                                         </div>

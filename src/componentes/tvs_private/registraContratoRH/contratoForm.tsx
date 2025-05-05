@@ -12,6 +12,14 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         }
     }))
 
+    const tiposDeContrato = [
+        { value: 'INITIAL', label: 'Seleccione' },
+        { value: 'INDEFINIDO', label: 'Termino indefinido' },
+        { value: 'TERMINO_FIJO', label: 'Termino fijo' },
+        { value: 'OBRA_LABOR', label: 'Obra labor' },
+        { value: 'OPS', label: 'Prestación de Servicios (OPS)' },
+    ]
+
     const contratosCon = [
         { value: 'INITIAL', label: 'Seleccione' },
         { value: 'RED_SALUD', label: 'Red Salud' },
@@ -84,7 +92,10 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [constratoCon, setContratoCon] = useState('INITIAL');
     const [zona, setZona] = useState('INITIAL');
     const [municipio, setMunicipio] = useState('INITIAL');
+
+    const [tipoContrato, setTipoContrato] = useState('INITIAL');
     const [fechaInicio, setFechaInicio] = useState('');
+    const [fechaFinal, setFechaFinal] = useState('');
     const [cargo, setCargo] = useState('INITIAL');
     const [cargoCustom, setCargoCustom] = useState('');
     const [area, setArea] = useState('');
@@ -96,7 +107,10 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
     const [constratoConRef, setContratoConRef] = useState(false);
     const [zonaRef, setZonaRef] = useState(false);
     const [municipioRef, setMunicipioRef] = useState(false);
+
+    const [tipoContratoRef, setTipoContratoRef] = useState(false);
     const [fechaInicioRef, setFechaInicioRef] = useState(false);
+    const [fechaFinalRef, setFechaFinalRef] = useState(false);
     const [cargoRef, setCargoRef] = useState(false);
     const [cargoCustomRef, setCargoCustomRef] = useState(false);
     const [areaRef, setAreaRef] = useState(false);
@@ -110,12 +124,15 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
 
     const [disableInputZona, setDisableInputZona] = useState(false);
     const [showInputCargo, setShowInputCargo] = useState(false);
+    const [showInputFechaFinContrato, setShowInputFechaFinContrato] = useState(true);
 
     const resetForm = () => {
         setContratoCon('INITIAL');
         setZona('INITIAL');
         setMunicipio('INITIAL');
+        setTipoContrato('INITIAL')
         setFechaInicio('');
+        setFechaFinal('')
         setCargo('INITIAL');
         setArea('');
         setSueldo('');
@@ -126,7 +143,9 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         setContratoConRef(false)
         setZonaRef(false)
         setMunicipioRef(false)
+        setTipoContratoRef(false)
         setFechaInicioRef(false)
+        setFechaFinalRef(false)
         setCargoRef(false)
         setAreaRef(false)
         setSueldoRef(false)
@@ -218,6 +237,21 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 setMunicipioRef(true)
             }
         }
+
+        setTipoContratoRef(false)
+        setFechaFinalRef(false)
+        if (tipoContrato === 'INITIAL') {
+            formValidado.push('tipoContrato');
+            setTipoContratoRef(true)
+        } else {
+            if (tipoContrato !== 'INDEFINIDO') {
+                if (fechaFinal.length === 0) {
+                    formValidado.push('fechaFinal');
+                    setFechaFinalRef(true)
+                }
+            }
+        }
+
         setFechaInicioRef(false)
         if (fechaInicio.length === 0) {
             formValidado.push('fechaInicio');
@@ -244,7 +278,9 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 prop0: constratoCon,
                 prop1: zona,
                 prop2: municipio,
+                prop10: tipoContrato,
                 prop3: fechaInicio,
+                prop11: fechaFinal,
                 prop4: cargoValue,
                 prop5: area,
                 prop6: sueldo,
@@ -266,9 +302,18 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         }
     }
 
+    const evaluateTipoContrato = (tipoContrato: string) => {
+        setTipoContrato(tipoContrato)
+        setShowInputFechaFinContrato(true)
+        if (tipoContrato === 'INDEFINIDO') {
+            setFechaFinal('')
+            setShowInputFechaFinContrato(false)
+        }
+    }
+
     return (
         <>
-            <h4 >Información del Contrato</h4>
+            <h4 >Información del Contrato:</h4>
             <p>A continuación, ingresa la información del contrato:</p>
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
@@ -322,10 +367,41 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                         </select>
                     </div>
                 </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6" ></div>
+            </div>
+            <hr />
+            <h4 >Detalle del Contrato:</h4>
+            <div className="row">
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                    <div className='div-form'>
+                        <p className='p-label-form'>Tipo de contrato: </p>
+                        <select value={tipoContrato} onChange={(e) => evaluateTipoContrato(e.target.value)} className={tipoContratoRef ? 'form-control form-control-error' : 'form-control'} >
+                            {
+                                tiposDeContrato.map((key, i) => {
+                                    return (
+                                        <option key={i} value={key.value}>{key.label}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6" ></div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
                         <p className='p-label-form'>Fecha Inicio: </p>
                         <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} className={fechaInicioRef ? 'form-control form-control-error' : 'form-control'} />
+                    </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                    <div className='div-form'>
+                        <p className='p-label-form'>Fecha Final: </p>
+                        {
+                            showInputFechaFinContrato ?
+                                <input type="date" value={fechaFinal} onChange={(e) => setFechaFinal(e.target.value)} className={fechaFinalRef ? 'form-control form-control-error' : 'form-control'} />
+                                :
+                                <input type="date" value={fechaFinal} className={fechaFinalRef ? 'form-control form-control-error' : 'form-control'} disabled/>
+                        }
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
@@ -345,16 +421,16 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
-                    <div className='div-form'>                        
-                    <p className='p-label-form'>Indique el cargo: </p>
+                    <div className='div-form'>
+                        <p className='p-label-form'>Indique el cargo: </p>
                         {
                             showInputCargo ?
-                                <>          
+                                <>
                                     <input type="text" value={cargoCustom} onChange={(e) => setCargoCustom(e.target.value)} className={cargoCustomRef ? 'form-control form-control-error' : 'form-control'} />
                                 </>
                                 :
                                 <>
-                                <input type="text" disabled className={cargoCustomRef ? 'form-control form-control-error' : 'form-control'} />
+                                    <input type="text" disabled className={cargoCustomRef ? 'form-control form-control-error' : 'form-control'} />
                                 </>
                         }
                     </div>

@@ -115,7 +115,7 @@ const ZoneRoot: React.FC<IZoneRootProps> = ({ infoMenuUsuario, setCargando, zona
                                         <div className="div-style-form">
                                             <Dashboard />
                                             <hr/>
-                                            <ListaContratosRhPadre />
+                                            <ListaContratosRhPadre zonaConsulta={zonaConsulta} />
                                         </div>
                                     </div>
                                 </div>

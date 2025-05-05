@@ -52,6 +52,7 @@ export interface IZoneRootProps {
 
 export interface IZoneAdminProps {
     infoMenuUsuario: IUsuarioSession
+    zonaConsulta: string
 }
 
 export interface IListaRhProps {
@@ -64,6 +65,9 @@ export interface IListaContratosRhProps {
     setCargando: React.Dispatch<React.SetStateAction<boolean>>;
     setRedirect: React.Dispatch<React.SetStateAction<string>>;
     setRHContratoId: React.Dispatch<React.SetStateAction<any>>;
+    setControlExecute: React.Dispatch<React.SetStateAction<boolean>>;
+    controlExecute: boolean;
+    zonaConsulta: string;
 }
 
 export interface IDetalleContratoRhProps {
@@ -103,7 +107,6 @@ export interface IUsuarioSession {
     id_procesamiento: string
 }
 
-
 export interface IListasCursos {
     idList: number
     nombreCurso: string
@@ -111,6 +114,10 @@ export interface IListasCursos {
     fechaVencimiento: string,
     estado: string,
     diasPorVencer: number,
+}
+
+export interface IListaContratosRhPadreProps {
+    zonaConsulta: string   
 }
 
 export interface IModalProps {
@@ -124,6 +131,8 @@ export interface IPropsModal {
     resultForm1: IPropsResultForm
     resultForm2: IPropsResultForm
     resultForm3: IListasCursos[]
+    rHContracts?: any[]
+    functionSi?: Function
 }
 
 export interface IPropsResultForm {
@@ -137,6 +146,8 @@ export interface IPropsResultForm {
     prop7?: string;
     prop8?: string;
     prop9?: string;
+    prop10?: string;
+    prop11?: string;
 }
 
 export interface IRecursoHumanoDto {
@@ -154,6 +165,7 @@ export interface IContratoRHDto {
     contrato: string;
     zonaContrato: string;
     municipio: string;
+    tipoContrato: string;
     fechaInicio: string;
     fechaFinalizacion: string;
     cargo: string;

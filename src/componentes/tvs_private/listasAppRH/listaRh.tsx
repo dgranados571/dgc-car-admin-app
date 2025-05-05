@@ -59,7 +59,8 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
     setPropsModalForm({
       resultForm1: propsModalInfo,
       resultForm2: {},
-      resultForm3: []
+      resultForm3: [],
+      rHContracts: rHId.contratosRHDto
     })
     setTipoModal('MODAL_DETALLE_INFO')
     setModalOpen(true)
