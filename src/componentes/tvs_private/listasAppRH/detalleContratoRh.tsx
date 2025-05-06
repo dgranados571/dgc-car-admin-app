@@ -6,7 +6,7 @@ import { faRotateLeft } from '@fortawesome/free-solid-svg-icons'
 import DetalleContratoRhInfo from './detalleContratoRhInfo'
 import DetalleCursosRhInfo from './detalleCursosRhInfo'
 
-const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, setRedirect }) => {
+const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, setRedirect, ejecutaModalComponent }) => {
 
     const causalesDeFinalizacion = [
         { value: 'INITIAL', label: 'Seleccione' },
@@ -21,8 +21,92 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
     const [causalFinalizaContratoRef, setCausalFinalizaContratoRef] = useState(false);
     const [fechaFinalizacionRef, setFechaFinalizacionRef] = useState(false);
 
-    const finalizarContratoRH = ()=>{
-        console.log(rHContratoId)
+    const finalizarContratoRH = () => {
+        let formValidado = [];
+        setCausalFinalizaContratoRef(false)
+        if (causalFinalizaContrato === 'INITIAL') {
+            formValidado.push('causalFinalizaContrato');
+            setCausalFinalizaContratoRef(true)
+        }
+        setFechaFinalizacionRef(false)
+        if (fechaFinalizacion.length === 0) {
+            formValidado.push('causalFinalizaContrato');
+            setFechaFinalizacionRef(true)
+        }
+        if (formValidado.length === 0) {
+            const idPropExecute = {
+                "action": "FINALIZARH",
+                "idProp": rHContratoId,
+                causalFinalizaContrato,
+                fechaFinalizacion
+            }
+            ejecutaModalComponent('Finalización de contrato', 'Está a punto de finalizar el contrato, Una vez confirmado, el contrato será cerrado y no podrá ser modificado', 'MODAL_CONTROL_2', idPropExecute)
+        } else {
+            formValidado.splice(0, formValidado.length)
+        }
+    }
+
+    const panelFinalizaContrato = () => {
+
+        if (rHContratoId.contratoRHDto.fechaTerminacion) {
+            return (
+                <>
+                    <div className="d-flex justify-content-between">
+                        <h4 >Detalles de la finalización de contrato:</h4>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                            <div className='div-info-item'>
+                                <p className='p-label-form m-1'>Fecha de finalización: </p>
+                                <p className='p-label-form m-1'>{rHContratoId.contratoRHDto.fechaTerminacion} </p>
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6" ></div>
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                            <div className='div-info-item'>
+                                <p className='p-label-form m-1'>Causal de finalización: </p>
+                                <p className='p-label-form m-1'>{rHContratoId.contratoRHDto.causaTerminacion} </p>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <h4 >Finalizar contrato:</h4>
+                    <div className="row">
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                            <div className='div-form'>
+                                <p className='p-label-form'>Causal de finalización: </p>
+                                <select value={causalFinalizaContrato} onChange={(e) => setCausalFinalizaContrato(e.target.value)} className={causalFinalizaContratoRef ? 'form-control form-control-error' : 'form-control'} >
+                                    {
+                                        causalesDeFinalizacion.map((key, i) => {
+                                            return (
+                                                <option key={i} value={key.value}>{key.label}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                            <div className='div-form'>
+                                <p className='p-label-form'>Fecha finalización: </p>
+                                <input type="date" value={fechaFinalizacion} onChange={(e) => setFechaFinalizacion(e.target.value)} className={fechaFinalizacionRef ? 'form-control form-control-error' : 'form-control'} />
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
+                            <div className='div-bottom-custom'>
+                                <button className='btn btn-primary bottom-custom' onClick={() => { finalizarContratoRH() }} >Finalizar contrato</button>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )
+        }
+
+
     }
 
     return (
@@ -51,35 +135,10 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
                     <></>
             }
             <hr />
-            <h4 >Finalizar contrato:</h4>
-            <div className="row">
-                <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
-                    <div className='div-form'>
-                        <p className='p-label-form'>Causal de finalización: </p>
-                        <select value={causalFinalizaContrato} onChange={(e) => setCausalFinalizaContrato(e.target.value)} className={causalFinalizaContratoRef ? 'form-control form-control-error' : 'form-control'} >
-                            {
-                                causalesDeFinalizacion.map((key, i) => {
-                                    return (
-                                        <option key={i} value={key.value}>{key.label}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
-                    <div className='div-form'>
-                        <p className='p-label-form'>Fecha finalización: </p>
-                        <input type="date" value={fechaFinalizacion} onChange={(e) => setFechaFinalizacion(e.target.value)} className={fechaFinalizacionRef ? 'form-control form-control-error' : 'form-control'} />
-                    </div>
-                </div>
-                <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
-                    <div className='div-bottom-custom'>
-                        <button className='btn btn-primary bottom-custom' onClick={() => { finalizarContratoRH() }} >Finalizar contrato</button>
-                    </div>
-                </div>
-            </div>
-            <br/><br/>
+            {
+                panelFinalizaContrato()
+            }
+            <br /><br />
         </>
     )
 }

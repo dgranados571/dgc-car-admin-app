@@ -166,7 +166,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                                         <td className='td-info'>
                                                             <div className=''>
                                                                 <button className='btn btn-link bottom-custom-link p-0' onClick={() => detalleContrato(rHContratoId)}>
-                                                                    <FontAwesomeIcon className='icons-table-ds' icon={faEye} /><p className='margin-icons'>Detalle</p>
+                                                                    <FontAwesomeIcon className='icons-table-ds' icon={faEye} /><p className='margin-icons'>Gestionar</p>
                                                                 </button>
                                                             </div>
                                                             {

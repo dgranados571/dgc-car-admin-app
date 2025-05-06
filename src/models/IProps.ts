@@ -71,6 +71,7 @@ export interface IListaContratosRhProps {
 }
 
 export interface IDetalleContratoRhProps {
+    ejecutaModalComponent: Function
     rHContratoId:any
     setRedirect: React.Dispatch<React.SetStateAction<string>>;
 }

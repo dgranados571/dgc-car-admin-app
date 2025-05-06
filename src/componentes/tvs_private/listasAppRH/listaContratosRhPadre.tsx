@@ -36,7 +36,7 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
                 )
             case 'VISTA_DETALLE_CONTRATO_RH':
                 return (
-                    <DetalleContratoRh rHContratoId={rHContratoId} setRedirect={setRedirect} />
+                    <DetalleContratoRh ejecutaModalComponent={ejecutaModalComponent} rHContratoId={rHContratoId} setRedirect={setRedirect} />
                 )
             default:
                 return (
@@ -51,7 +51,7 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
                 setPropsModalForm({
                     tipoModal: tipoModal,
                     modalNo: () => { cancelaOperacionModal() },
-                    modalSi: () => { ejecutaOperacionEliminarContrato(idPropExecute.idProp) },
+                    modalSi: () => { ejecutaOperacionEliminarContrato(idPropExecute) },
                     propsModal: {
                         resultForm1: {
                             prop0: titulo,
@@ -68,6 +68,39 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
                     modalNo: () => {
                         cancelaOperacionModal()
                         setControlExecute(!controlExecute)
+                    },
+                    modalSi: () => { },
+                    propsModal: {
+                        resultForm1: {
+                            prop0: titulo,
+                            prop1: descripicion,
+                        },
+                        resultForm2: {},
+                        resultForm3: []
+                    }
+                })
+            }
+            if (idPropExecute.action === 'FINALIZARH') {
+                setPropsModalForm({
+                    tipoModal: tipoModal,
+                    modalNo: () => { cancelaOperacionModal() },
+                    modalSi: () => { ejecutaOperacionTerminarContrato(idPropExecute) },
+                    propsModal: {
+                        resultForm1: {
+                            prop0: titulo,
+                            prop1: descripicion,
+                        },
+                        resultForm2: {},
+                        resultForm3: []
+                    }
+                })
+            }
+            if (idPropExecute.action === 'FINALIZAOK') {
+                setPropsModalForm({
+                    tipoModal: tipoModal,
+                    modalNo: () => { 
+                        setRedirect('VISTA_LISTA_CONTRATO_RH')
+                        cancelaOperacionModal() 
                     },
                     modalSi: () => { },
                     propsModal: {
@@ -98,10 +131,36 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
         setModalOpen(true)
     }
 
+    const ejecutaOperacionTerminarContrato = async (idPropExecute: any) => {
+        setCargando(true)
+        const body = {
+            "noContrato": idPropExecute.idProp.idContratoRh,
+            "causalFinalizaContrato": idPropExecute.causalFinalizaContrato,
+            "fechaFinalizacion": idPropExecute.fechaFinalizacion
+        }        
+        const authServices = new AuthServices();
+        try {
+            const response: IGenericResponse = await authServices.requestPost(body, 14);
+            if (response.estado) {
+                const idPropExecute = {
+                    "action": "FINALIZAOK",
+                    "idProp": "",
+                }
+                ejecutaModalComponent('Contrato finalizado con éxito', response.mensaje, 'MODAL_CONTROL_1', idPropExecute)
+            } else {
+                ejecutaModalComponent('Valla algo salió mal¡¡', response.mensaje, 'MODAL_CONTROL_1')
+            }
+            setCargando(false)
+        } catch (error) {
+            setCargando(false)
+            ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible consultar la información, contacte al administrador', 'MODAL_CONTROL_1')
+        }
+    }
+
     const ejecutaOperacionEliminarContrato = async (idPropExecute: any) => {
         setCargando(true)
         const body = {
-            "noContrato": idPropExecute,
+            "noContrato": idPropExecute.idProp,
         }
         const authServices = new AuthServices();
         try {
