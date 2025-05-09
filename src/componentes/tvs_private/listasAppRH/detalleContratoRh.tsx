@@ -102,7 +102,7 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
                             <div className='div-bottom-custom'>
-                                <button className='btn btn-primary bottom-custom' onClick={() => { finalizarContratoRH() }} >Finalizar contrato</button>
+                                <button className='btn btn-primary bottom-custom' onClick={() => { finalizarContratoRH() }} >Finalizar</button>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
                     <div className='div-targer-admin' onClick={() => { setRedirectZone('VIEW_FINALIZAR_CONTRATO') }}>
                         <FontAwesomeIcon className='icon-menu-principal' icon={faCheckSquare} />
                         <div className='div-targer-action'>
-                            <p className={redirectZone === 'VIEW_FINALIZAR_CONTRATO' ? 'p-menu-label-active' : 'p-menu-label'}>Finalizar Contrato</p>
+                            <p className={redirectZone === 'VIEW_FINALIZAR_CONTRATO' ? 'p-menu-label-active' : 'p-menu-label'}>Finalizar</p>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ const OtroSiVigencia: React.FC<IOtroSiProps> = ({ rHContratoId }) => {
         </div>
         <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
           <div className='div-bottom-custom'>
-            <button className='btn btn-primary bottom-custom' onClick={() => { }} >Actualizar contrato</button>
+            <button className='btn btn-primary bottom-custom' onClick={() => { }} >Actualizar</button>
           </div>
         </div>
       </div>
