@@ -88,7 +88,6 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         { value: 'OTRO', label: 'Otro' },
     ];
 
-
     const [constratoCon, setContratoCon] = useState('INITIAL');
     const [zona, setZona] = useState('INITIAL');
     const [municipio, setMunicipio] = useState('INITIAL');

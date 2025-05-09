@@ -76,6 +76,10 @@ export interface IDetalleContratoRhProps {
     setRedirect: React.Dispatch<React.SetStateAction<string>>;
 }
 
+export interface IOtroSiProps {
+    rHContratoId:any   
+}
+
 export interface IRegistraRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
 }

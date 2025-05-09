@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import DetalleRhInfo from '../gestionRH/detalleRhInfo'
 import { IDetalleContratoRhProps } from '../../../models/IProps'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faRotateLeft, faHandshake, faCheckSquare, faVcard } from '@fortawesome/free-solid-svg-icons'
 import DetalleContratoRhInfo from './detalleContratoRhInfo'
 import DetalleCursosRhInfo from './detalleCursosRhInfo'
+import OtroSi from '../otroSi/otroSi'
 
 const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, setRedirect, ejecutaModalComponent }) => {
+
+    const [redirectZone, setRedirectZone] = useState('VIEW_FINALIZAR_CONTRATO')
 
     const causalesDeFinalizacion = [
         { value: 'INITIAL', label: 'Seleccione' },
@@ -47,7 +50,6 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
     }
 
     const panelFinalizaContrato = () => {
-
         if (rHContratoId.contratoRHDto.fechaTerminacion) {
             return (
                 <>
@@ -75,7 +77,9 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
             return (
                 <>
                     <h4 >Finalizar contrato:</h4>
-                    <div className="row">
+                    <p>En este módulo podrá gestionar la finalización del contrato. Por favor, seleccione la causa de finalización y especifique la fecha en la que se hará efectiva.</p>
+                    <p>Asegúrese de revisar la información antes de confirmar el proceso:</p>
+                    <div className="row mt-3">
                         <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                             <div className='div-form'>
                                 <p className='p-label-form'>Causal de finalización: </p>
@@ -105,40 +109,83 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
                 </>
             )
         }
+    }
 
-
+    const validateRedirect = () => {
+        switch (redirectZone) {
+            case 'VIEW_FINALIZAR_CONTRATO':
+                return (
+                    <div className='div-style-form'>
+                        {
+                            panelFinalizaContrato()
+                        }
+                    </div>
+                )
+            case 'VIEW_OTRO_SI':
+                return (
+                    <div className='div-style-form'>
+                        <OtroSi rHContratoId={rHContratoId} />
+                    </div>
+                )
+            default:
+                return (
+                    <></>
+                )
+        }
     }
 
     return (
         <>
-            <div className='div-titulo-ds'>
-                <h4 >Información personal:</h4>
-                <button className='btn btn-link bottom-custom-link' onClick={() => setRedirect('VISTA_LISTA_CONTRATO_RH')}>
-                    <FontAwesomeIcon className='icons-table-ds' icon={faRotateLeft} /><p className='margin-icons'>Volver</p>
-                </button>
+            <br />
+            <div className='div-style-form'>
+                <div className='div-titulo-ds'>
+                    <h4 >Información personal:</h4>
+                    <button className='btn btn-link bottom-custom-link' onClick={() => setRedirect('VISTA_LISTA_CONTRATO_RH')}>
+                        <FontAwesomeIcon className='icons-table-ds' icon={faRotateLeft} /><p className='margin-icons'>Volver</p>
+                    </button>
+                </div>
+                <DetalleRhInfo rHContract={rHContratoId.recursoHumanoDto} />
+                <hr />
+                <div className="div-titulo-ch-detalle">
+                    <h4 >Detalle de la contratación # {rHContratoId.contratoRHDto.noContrato} </h4>
+                    <h4 >{rHContratoId.contratoRHDto.estado} </h4>
+                </div>
+                <DetalleContratoRhInfo rHContract={rHContratoId.contratoRHDto} />
+                <hr />
+                {
+                    rHContratoId.cursosRHDto.length > 0 ?
+                        <>
+                            <h4 >Detalle de cursos:</h4>
+                            <DetalleCursosRhInfo rHContract={rHContratoId.cursosRHDto} />
+                            <hr />
+                        </>
+                        :
+                        <></>
+                }
             </div>
-            <DetalleRhInfo rHContract={rHContratoId.recursoHumanoDto} />
-            <hr />
-            <div className="div-titulo-ch-detalle">
-                <h4 >Detalle de la contratación # {rHContratoId.contratoRHDto.noContrato} </h4>
-                <h4 >{rHContratoId.contratoRHDto.estado} </h4>
+            <div className="row m-3">
+                <div className="col-12 col-sm-12 col-md-2 col-lg-2" ></div>
+                <div className="col-6 col-sm-6 col-md-4 col-lg-4 div-targer-admin-padre mt-0" >
+                    <div className='div-targer-admin' onClick={() => { setRedirectZone('VIEW_FINALIZAR_CONTRATO') }}>
+                        <FontAwesomeIcon className='icon-menu-principal' icon={faCheckSquare} />
+                        <div className='div-targer-action'>
+                            <p className={redirectZone === 'VIEW_FINALIZAR_CONTRATO' ? 'p-menu-label-active' : 'p-menu-label'}>Finalizar Contrato</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-6 col-sm-6 col-md-4 col-lg-4 div-targer-admin-padre mt-0" >
+                    <div className='div-targer-admin' onClick={() => { setRedirectZone('VIEW_OTRO_SI') }}>
+                        <FontAwesomeIcon className='icon-menu-principal' icon={faHandshake} />
+                        <div className='div-targer-action'>
+                            <p className={redirectZone === 'VIEW_OTRO_SI' ? 'p-menu-label-active' : 'p-menu-label'}>Otro Si</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-2 col-lg-2" ></div>
             </div>
-            <DetalleContratoRhInfo rHContract={rHContratoId.contratoRHDto} />
-            <hr />
             {
-                rHContratoId.cursosRHDto.length > 0 ?
-                    <>
-                        <h4 >Detalle de cursos:</h4>
-                        <DetalleCursosRhInfo rHContract={rHContratoId.cursosRHDto} />
-                    </>
-                    :
-                    <></>
+                validateRedirect()
             }
-            <hr />
-            {
-                panelFinalizaContrato()
-            }
-            <br /><br />
         </>
     )
 }

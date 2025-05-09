@@ -69,6 +69,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
 
     return (
         <>
+            <br />
             <div className='div-style-form'>
                 <h4>Aplicar filtros: </h4>
                 <div className="row mb-5">

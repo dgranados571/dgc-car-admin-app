@@ -82,10 +82,9 @@ const ZoneAdmin: React.FC<IZoneAdminProps> = ({ infoMenuUsuario, zonaConsulta })
                                     </div>
                                     <div className="div-dashboard-content">
                                         <div className="div-style-form">
-                                            <Dashboard />
-                                            <hr />
-                                            <ListaContratosRhPadre zonaConsulta={zonaConsulta} />
-                                        </div>
+                                            <Dashboard />                                            
+                                        </div>                                        
+                                        <ListaContratosRhPadre zonaConsulta={zonaConsulta} />
                                     </div>
                                 </div>
                             </div>
