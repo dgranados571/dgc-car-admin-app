@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { IOtroSiProps } from '../../../models/IProps'
+import { IOtroSiPadreProps } from '../../../models/IProps'
 import OtroSiVigencia from './otroSiVigencia';
 import OtroSiSalarial from './otroSiSalarial';
 
-const OtroSi: React.FC<IOtroSiProps> = ({ rHContratoId }) => {
+const OtroSi: React.FC<IOtroSiPadreProps> = ({ rHContratoId }) => {
 
     const [tipoOtroSi, setTipoOtroSi] = useState('INITIAL');
 
@@ -20,7 +20,7 @@ const OtroSi: React.FC<IOtroSiProps> = ({ rHContratoId }) => {
                     <>
                         <hr />
                         <h4 >Modificar estructura salarial</h4>
-                        <OtroSiSalarial rHContratoId={rHContratoId} />
+                        <OtroSiSalarial rHContratoId={rHContratoId} setTipoOtroSi={setTipoOtroSi} />
                     </>
                 )
             case 'CAMBIO_VIGENCIA':
@@ -28,7 +28,7 @@ const OtroSi: React.FC<IOtroSiProps> = ({ rHContratoId }) => {
                     <>
                         <hr />
                         <h4 >Modificar vigencia</h4>
-                        <OtroSiVigencia rHContratoId={rHContratoId} />
+                        <OtroSiVigencia rHContratoId={rHContratoId} setTipoOtroSi={setTipoOtroSi}/>
                     </>
                 )
             default:
