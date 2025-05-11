@@ -66,6 +66,7 @@ const OtroSiSalarial: React.FC<IOtroSiProps> = ({ rHContratoId, setTipoOtroSi })
         } else {
             setCargo('OTRO')
             setCargoCustom(cargo)
+            setShowInputCargo(true)
         }
         setArea(area)
         setSueldo(sueldo)
