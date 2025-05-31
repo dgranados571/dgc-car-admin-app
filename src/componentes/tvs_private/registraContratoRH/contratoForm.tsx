@@ -1,7 +1,7 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { IFormRHHandle, IListasSelect } from '../../../models/IProps'
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
+import { IContratoFormProps, IFormRHHandle, IListasSelect } from '../../../models/IProps'
 
-const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
+const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle, IContratoFormProps> = ({ editaContrato, rHContratoId }, ref) => {
 
     useImperativeHandle(ref, () => ({
         funcionHandle1() {
@@ -87,6 +87,50 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
         { value: 'TECNICO_AUDITORIA', label: 'Tecnico auditoria' },
         { value: 'OTRO', label: 'Otro' },
     ];
+
+    useEffect(() => {        
+        if (editaContrato) {
+            seteaValoresForm()
+        }
+    }, [])
+
+    const seteaValoresForm = () => {
+        const { contrato, zonaContrato, municipio,
+            tipoContrato, fechaInicio, fechaFinalizacion,
+        cargo, area, sueldo, auxilioTransporte, bono } = rHContratoId.contratoRHDto
+        evaluateContratoCon(contrato)
+        switch (contrato) {
+            case 'RED_SALUD':
+                evaluateEventZonaContrato(zonaContrato)
+                break;
+            case 'SALUD_YOPAl':
+                break;
+            default:
+                break;
+        }
+        setMunicipio(municipio)
+        evaluateTipoContrato(tipoContrato)
+        setFechaInicio(fechaInicio)
+        setFechaFinal(fechaFinalizacion)
+
+        const resultadoCargo = filtrarPorValor(cargosList, cargo);
+        if (resultadoCargo.length > 0) {
+            setCargo(resultadoCargo[0].value)
+        } else {
+            setCargo('OTRO')
+            setCargoCustom(cargo)
+            setShowInputCargo(true)
+        }
+
+        setArea(area)
+        setSueldo(sueldo)
+        setAuxTransporte(auxilioTransporte)
+        setBono(bono)
+    }
+
+    const filtrarPorValor = (lista: { value: string; label: string }[], valorBuscado: string) => {
+        return lista.filter(item => item.value === valorBuscado);
+    };
 
     const [constratoCon, setContratoCon] = useState('INITIAL');
     const [zona, setZona] = useState('INITIAL');
@@ -312,8 +356,15 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
 
     return (
         <>
-            <h4 >Información del Contrato:</h4>
-            <p>A continuación, ingresa la información del contrato:</p>
+            {
+                editaContrato ?
+                    <></>
+                    :
+                    <>
+                        <h4 >Información del Contrato:</h4>
+                        <p>A continuación, ingresa la información del contrato:</p>
+                    </>
+            }
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
@@ -369,7 +420,14 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" ></div>
             </div>
             <hr />
-            <h4 >Detalle del Contrato:</h4>
+            {
+                editaContrato ?
+                    <></>
+                    :
+                    <>
+                        <h4 >Detalle del Contrato:</h4>
+                    </>
+            }
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                     <div className='div-form'>
@@ -399,7 +457,7 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                             showInputFechaFinContrato ?
                                 <input type="date" value={fechaFinal} onChange={(e) => setFechaFinal(e.target.value)} className={fechaFinalRef ? 'form-control form-control-error' : 'form-control'} />
                                 :
-                                <input type="date" value={fechaFinal} className={fechaFinalRef ? 'form-control form-control-error' : 'form-control'} disabled/>
+                                <input type="date" value={fechaFinal} className={fechaFinalRef ? 'form-control form-control-error' : 'form-control'} disabled />
                         }
                     </div>
                 </div>
@@ -459,14 +517,21 @@ const ContratoForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) =
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
-                    <div className='div-form'>
-                        <p className='p-label-form'>No contrato: </p>
-                        <input type="text" value={noContrato} onChange={(e) => setNoContrato(e.target.value)} className={noContratoRef ? 'form-control form-control-error' : 'form-control'} />
-                    </div>
-                    <p>
-                        **Ingrese un número de contrato. Si deja el valor en 0, se asignará automáticamente el próximo número disponible. Si el número ingresado ya existe,
-                        no podrá crear el contrato.**
-                    </p>
+                    {
+                        editaContrato ?
+                            <></>
+                            :
+                            <>
+                                <div className='div-form'>
+                                    <p className='p-label-form'>No contrato: </p>
+                                    <input type="text" value={noContrato} onChange={(e) => setNoContrato(e.target.value)} className={noContratoRef ? 'form-control form-control-error' : 'form-control'} />
+                                </div>
+                                <p>
+                                    **Ingrese un número de contrato. Si deja el valor en 0, se asignará automáticamente el próximo número disponible. Si el número ingresado ya existe,
+                                    no podrá crear el contrato.**
+                                </p>
+                            </>
+                    }
                 </div>
             </div>
         </>

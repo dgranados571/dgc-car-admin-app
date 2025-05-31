@@ -48,8 +48,8 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         }
     }
 
-    const detalleContrato = (rHContratoId: any) => {
-        setRHContratoId(rHContratoId)
+    const detalleContrato = (rHContratoId: any) => {        
+        setRHContratoId(rHContratoId.idContratoRh)
         setRedirect('VISTA_DETALLE_CONTRATO_RH')
     }
 
@@ -69,7 +69,6 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
 
     return (
         <>
-            <br />
             <div className='div-style-form'>
                 <h4>Aplicar filtros: </h4>
                 <div className="row mb-5">

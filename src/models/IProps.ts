@@ -7,6 +7,11 @@ export interface IFormRHHandle {
     funcionHandle2: () => any;
 }
 
+export interface IContratoFormProps {
+    editaContrato: boolean
+    rHContratoId?:any
+}
+
 export interface IMenuLateral {
     nombreItem: string;
     className: string;

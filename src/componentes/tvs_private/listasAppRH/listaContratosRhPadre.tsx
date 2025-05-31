@@ -24,7 +24,7 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
     const [controlExecute, setControlExecute] = useState(false)
 
     const [redirect, setRedirect] = useState('VISTA_LISTA_CONTRATO_RH');
-    const [rHContratoId, setRHContratoId] = useState<any>({});
+    const [rHContratoId, setRHContratoId] = useState(0);
 
     const validateRedirect = () => {
         switch (redirect) {

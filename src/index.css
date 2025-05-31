@@ -449,6 +449,11 @@ p {
   align-items: center;
 }
 
+.div-select-edit-contrato {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (min-width: 760px) {
 
   .bottom-custom {

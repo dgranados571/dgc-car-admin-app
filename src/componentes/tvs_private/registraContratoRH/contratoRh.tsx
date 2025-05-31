@@ -151,7 +151,7 @@ const ContratoRH: React.FC<IContratoRhProps> = ({ rHContract, setRedirectZone })
                 <h4 >Información Personal</h4>
                 <DetalleRhInfo rHContract={rHContract.recursoHumanoDto} />
                 <hr />
-                <ContratoForm ref={contratoFormRef} />
+                <ContratoForm ref={contratoFormRef} editaContrato= {false}  />
                 <hr />
                 <CursosForm ref={cursosFormRef} />
                 <hr />
