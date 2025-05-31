@@ -294,6 +294,7 @@ const DetalleContratoRh: React.FC<IDetalleContratoRhProps> = ({ rHContratoId, se
     const cancelaOperacionModal = () => {
         setTipoModal('')
         setModalOpen(false)
+        setModalOpen1(false)
     }
 
     return (
