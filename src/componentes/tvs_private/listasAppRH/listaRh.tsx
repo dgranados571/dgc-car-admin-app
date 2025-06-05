@@ -5,6 +5,7 @@ import Modal from '../../tvs/modal/modal'
 import { Cargando } from '../../tvs/loader/cargando'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeFork, faEye } from '@fortawesome/free-solid-svg-icons'
+import { Paginador } from '../../tvs/paginacion/paginador'
 
 const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) => {
 
@@ -17,19 +18,32 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
     resultForm3: []
   })
 
+  const [executeConsultaList, setExecuteConsultaList] = useState(true)
+  const [paginacionSolicitudes, setPaginacionSolicitudes] = useState(
+    { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
+  );
+
   const [rHList, setRHList] = useState<any[]>([])
 
   useEffect(() => {
     getRHsInfo()
-  }, [])
+  }, [executeConsultaList])
 
   const getRHsInfo = async () => {
     setCargando(true)
+    const body = {
+      "elementosPorPagina": paginacionSolicitudes.elementosPorPagina,
+      "paginaActual": paginacionSolicitudes.paginaActual,
+    }
     const authServices = new AuthServices();
     try {
-      const response: IGenericResponse = await authServices.requestPost({}, 11);
+      const response: IGenericResponse = await authServices.requestPost(body, 11);
       if (response.estado) {
-        setRHList(response.objeto)
+        setRHList(response.objeto.recursoHumanoDtoList)
+        setPaginacionSolicitudes({
+          ...paginacionSolicitudes,
+          totalElementos: response.objeto.totalElementos
+        })
       } else {
         ejecutaModalComponent('Valla algo salió mal¡¡', response.mensaje, 'MODAL_CONTROL_1')
       }
@@ -88,7 +102,6 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
   return (
     <>
       <div className='div-style-form'>
-
         {
           rHList.length > 0 ?
             <>
@@ -153,25 +166,26 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
                   </tbody>
                 </table>
               </div>
+              <Paginador elementsPaginacion={paginacionSolicitudes} setElementsPaginacion={setPaginacionSolicitudes}
+                setExecuteConsultaList={setExecuteConsultaList} executeConsultaList={executeConsultaList} />
             </>
             :
             <p className=''>No hay información</p>
         }
+        {
+          modalOpen ?
+            <Modal tipoModal={tipoModal} modalSi={() => { }} modalNo={() => { cancelaOperacionModal() }} propsModal={propsModalForm} />
+            :
+            <></>
+        }
+        {
+          cargando ?
+            <Cargando />
+            :
+            <></>
+        }
       </div>
-      {
-        modalOpen ?
-          <Modal tipoModal={tipoModal} modalSi={() => { }} modalNo={() => { cancelaOperacionModal() }} propsModal={propsModalForm} />
-          :
-          <></>
-      }
-      {
-        cargando ?
-          <Cargando />
-          :
-          <></>
-      }
     </>
-
   )
 }
 

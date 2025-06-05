@@ -47,6 +47,8 @@ export interface IPaginacion {
 export interface IPaginadorProps {
     elementsPaginacion: any
     setElementsPaginacion: React.Dispatch<React.SetStateAction<any>>;
+    setExecuteConsultaList: React.Dispatch<React.SetStateAction<boolean>>;
+    executeConsultaList: boolean
 }
 
 export interface IZoneRootProps {
