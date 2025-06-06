@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeFork, faEye } from '@fortawesome/free-solid-svg-icons'
 import { Paginador } from '../../tvs/paginacion/paginador'
 
-const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) => {
+const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setControlExecute, controlExecute, setPaginacionLista, paginacionLista }) => {
 
   const [cargando, setCargando] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
@@ -18,30 +18,25 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
     resultForm3: []
   })
 
-  const [executeConsultaList, setExecuteConsultaList] = useState(true)
-  const [paginacionSolicitudes, setPaginacionSolicitudes] = useState(
-    { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
-  );
-
   const [rHList, setRHList] = useState<any[]>([])
 
   useEffect(() => {
     getRHsInfo()
-  }, [executeConsultaList])
+  }, [controlExecute])
 
   const getRHsInfo = async () => {
     setCargando(true)
     const body = {
-      "elementosPorPagina": paginacionSolicitudes.elementosPorPagina,
-      "paginaActual": paginacionSolicitudes.paginaActual,
+      "elementosPorPagina": paginacionLista.elementosPorPagina,
+      "paginaActual": paginacionLista.paginaActual,
     }
     const authServices = new AuthServices();
     try {
       const response: IGenericResponse = await authServices.requestPost(body, 11);
       if (response.estado) {
         setRHList(response.objeto.recursoHumanoDtoList)
-        setPaginacionSolicitudes({
-          ...paginacionSolicitudes,
+        setPaginacionLista({
+          ...paginacionLista,
           totalElementos: response.objeto.totalElementos
         })
       } else {
@@ -169,8 +164,8 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
               <div className="row">
                 <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
                 <div className="col-12 col-sm-10 col-md-10 col-lg-8" >
-                  <Paginador elementsPaginacion={paginacionSolicitudes} setElementsPaginacion={setPaginacionSolicitudes}
-                    setExecuteConsultaList={setExecuteConsultaList} executeConsultaList={executeConsultaList} />
+                  <Paginador elementsPaginacion={paginacionLista} setElementsPaginacion={setPaginacionLista}
+                    setExecuteConsultaList={setControlExecute} executeConsultaList={controlExecute} />
                 </div>
                 <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
               </div>

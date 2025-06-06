@@ -9,13 +9,20 @@ import ListaRh from '../listasAppRH/listaRh'
 const GestionRh = () => {
 
     const [redirectZone, setRedirectZone] = useState('VIEW_LISTA_RH')
+
+    const [controlExecute, setControlExecute] = useState(false)
+    const [paginacionLista, setPaginacionLista] = useState(
+        { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
+    );
+
     const [rHContract, setRHContract] = useState<any>({})
 
     const validateRedirect = () => {
         switch (redirectZone) {
             case 'VIEW_LISTA_RH':
                 return (
-                    <ListaRh setRedirectZone={setRedirectZone} setRHContract={setRHContract} />
+                    <ListaRh setRedirectZone={setRedirectZone} setRHContract={setRHContract} setControlExecute={setControlExecute} controlExecute={controlExecute}
+                    setPaginacionLista={setPaginacionLista} paginacionLista={paginacionLista} />
                 )
             case 'VIEW_REGISTRA_RH':
                 return (

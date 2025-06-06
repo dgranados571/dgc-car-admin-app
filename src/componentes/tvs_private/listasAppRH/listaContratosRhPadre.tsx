@@ -21,6 +21,13 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
         }
     })
 
+    const [paginacionLista, setPaginacionLista] = useState(
+        { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
+    );
+
+    const [contratoFiltro, setContratoFiltro] = useState('INITIAL')
+    const [identificacionFiltro, setIdentificacionFiltro] = useState('')
+
     const [controlExecute, setControlExecute] = useState(false)
 
     const [redirect, setRedirect] = useState('VISTA_LISTA_CONTRATO_RH');
@@ -31,7 +38,8 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
             case 'VISTA_LISTA_CONTRATO_RH':
                 return (
                     <ListaContratosRh ejecutaModalComponent={ejecutaModalComponent} setCargando={setCargando} setRedirect={setRedirect} setRHContratoId={setRHContratoId} zonaConsulta={zonaConsulta}
-                        setControlExecute={setControlExecute} controlExecute={controlExecute}
+                        setContratoFiltro={setContratoFiltro} contratoFiltro={contratoFiltro} setIdentificacionFiltro={setIdentificacionFiltro} identificacionFiltro={identificacionFiltro}
+                        setPaginacionLista={setPaginacionLista} paginacionLista={paginacionLista} setControlExecute={setControlExecute} controlExecute={controlExecute}
                     />
                 )
             case 'VISTA_DETALLE_CONTRATO_RH':
@@ -98,9 +106,9 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
             if (idPropExecute.action === 'FINALIZAOK') {
                 setPropsModalForm({
                     tipoModal: tipoModal,
-                    modalNo: () => { 
+                    modalNo: () => {
                         setRedirect('VISTA_LISTA_CONTRATO_RH')
-                        cancelaOperacionModal() 
+                        cancelaOperacionModal()
                     },
                     modalSi: () => { },
                     propsModal: {
@@ -137,7 +145,7 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
             "noContrato": idPropExecute.idProp.idContratoRh,
             "causalFinalizaContrato": idPropExecute.causalFinalizaContrato,
             "fechaFinalizacion": idPropExecute.fechaFinalizacion
-        }        
+        }
         const authServices = new AuthServices();
         try {
             const response: IGenericResponse = await authServices.requestPost(body, 14);

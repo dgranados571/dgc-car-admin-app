@@ -64,7 +64,11 @@ export interface IZoneAdminProps {
 
 export interface IListaRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
-    setRHContract: React.Dispatch<React.SetStateAction<any>>;    
+    setRHContract: React.Dispatch<React.SetStateAction<any>>; 
+    setControlExecute: React.Dispatch<React.SetStateAction<boolean>>;
+    controlExecute: boolean;
+    setPaginacionLista: React.Dispatch<React.SetStateAction<any>>;
+    paginacionLista: any   
 }
 
 export interface IListaContratosRhProps {
@@ -74,6 +78,15 @@ export interface IListaContratosRhProps {
     setRHContratoId: React.Dispatch<React.SetStateAction<any>>;
     setControlExecute: React.Dispatch<React.SetStateAction<boolean>>;
     controlExecute: boolean;
+
+    setPaginacionLista: React.Dispatch<React.SetStateAction<any>>;
+    paginacionLista: any
+
+    setContratoFiltro: React.Dispatch<React.SetStateAction<string>>;
+    contratoFiltro: string;
+    setIdentificacionFiltro: React.Dispatch<React.SetStateAction<string>>;
+    identificacionFiltro: string;
+
     zonaConsulta: string;
 }
 

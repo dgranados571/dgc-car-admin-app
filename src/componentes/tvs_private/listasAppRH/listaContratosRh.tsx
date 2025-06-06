@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Paginador } from '../../tvs/paginacion/paginador'
 
-const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalComponent, setCargando, setRedirect, setRHContratoId, zonaConsulta, setControlExecute, controlExecute }) => {
+const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalComponent, setCargando, setRedirect, setRHContratoId, zonaConsulta, setControlExecute,
+    controlExecute, setContratoFiltro, setPaginacionLista, paginacionLista, contratoFiltro, setIdentificacionFiltro, identificacionFiltro
+}) => {
 
     const rolesPermitenEliminar = ['ROLE_ROOT']
     const [showBotomElimina, setShowBotomElimina] = useState(false);
@@ -15,13 +17,6 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         { value: 'RED_SALUD', label: 'Red Salud' },
         { value: 'SALUD_YOPAl', label: 'Salud Yopal' }
     ]
-
-    const [paginacionSolicitudes, setPaginacionSolicitudes] = useState(
-        { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
-    );
-
-    const [contratoFiltro, setContratoFiltro] = useState('INITIAL')
-    const [identificacionFiltro, setIdentificacionFiltro] = useState('')
 
     const [contratosRhList, setContratosRhList] = useState<any[]>([])
 
@@ -37,8 +32,8 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         const body = {
             "contratoFiltro": contratoFiltro,
             "identificacionFiltro": identificacionFiltro,
-            "elementosPorPagina": paginacionSolicitudes.elementosPorPagina,
-            "paginaActual": paginacionSolicitudes.paginaActual,
+            "elementosPorPagina": paginacionLista.elementosPorPagina,
+            "paginaActual": paginacionLista.paginaActual,
         }
         const authServices = new AuthServices();
         try {
@@ -46,8 +41,8 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
 
             if (response.estado) {
                 setContratosRhList(response.objeto.contratosRHList)
-                setPaginacionSolicitudes({
-                    ...paginacionSolicitudes,
+                setPaginacionLista({
+                    ...paginacionLista,
                     totalElementos: response.objeto.totalElementos
                 })
             } else {
@@ -68,6 +63,10 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
     const limpiarFiltros = () => {
         setContratoFiltro('INITIAL')
         setIdentificacionFiltro('')
+        setPaginacionLista({
+            ...paginacionLista,
+            paginaActual: '1'
+        })
         setControlExecute(!controlExecute)
     }
 
@@ -77,6 +76,14 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
             "idProp": rHContratoId.idContratoRh,
         }
         ejecutaModalComponent('Advertencia: Eliminación del contrato', 'Eliminar este contrato es una acción irreversible. Todos los datos asociados serán eliminados permanentemente del sistema y no podrán ser recuperados. Esto podría afectar procesos relacionados a la gestión contractual. Por favor, asegúrate de haber revisado toda la información antes de proceder.', 'MODAL_CONTROL_2', idPropExecute)
+    }
+
+    const ejecutaFiltros = () => {
+        setPaginacionLista({
+            ...paginacionLista,
+            paginaActual: '1'
+        })
+        setControlExecute(!controlExecute)
     }
 
     return (
@@ -109,7 +116,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                     </div>
                     <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                         <div className='div-bottom-custom'>
-                            <button className='btn btn-primary bottom-custom' onClick={() => { setControlExecute(!controlExecute) }} >Buscar</button>
+                            <button className='btn btn-primary bottom-custom' onClick={() => { ejecutaFiltros() }} >Buscar</button>
                             <button className='btn btn-secondary bottom-custom-secondary' onClick={() => limpiarFiltros()} >Limpiar filtros</button>
                         </div>
                     </div>
@@ -202,7 +209,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                             <div className="row">
                                 <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
                                 <div className="col-12 col-sm-10 col-md-10 col-lg-8" >
-                                    <Paginador elementsPaginacion={paginacionSolicitudes} setElementsPaginacion={setPaginacionSolicitudes}
+                                    <Paginador elementsPaginacion={paginacionLista} setElementsPaginacion={setPaginacionLista}
                                         setExecuteConsultaList={setControlExecute} executeConsultaList={controlExecute} />
                                 </div>
                                 <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
