@@ -4,10 +4,10 @@ import { AuthServices } from '../../../services/authServices'
 import Modal from '../../tvs/modal/modal'
 import { Cargando } from '../../tvs/loader/cargando'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCodeFork, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faCodeFork, faEye, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { Paginador } from '../../tvs/paginacion/paginador'
 
-const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setControlExecute, controlExecute, setPaginacionLista, paginacionLista }) => {
+const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setRHEdita, setControlExecute, controlExecute, setPaginacionLista, paginacionLista }) => {
 
   const [cargando, setCargando] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
@@ -52,6 +52,11 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setC
   const registrarContrato = async (rHId: any) => {
     setRedirectZone('VIEW_CONTRATO_RH')
     setRHContract(rHId)
+  }
+
+  const editarRhAction = async (rHId: any) => {
+    setRedirectZone('VIEW_REGISTRA_RH')
+    setRHEdita(rHId)
   }
 
   const verDetalleRh = async (rHId: any) => {
@@ -151,6 +156,9 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setC
                                 </button>
                                 <button className='btn btn-link bottom-custom-link p-0' onClick={() => { verDetalleRh(rHId) }}>
                                   <FontAwesomeIcon className='icons-table-ds' icon={faEye} /><p className='margin-icons'>Detalle</p>
+                                </button>
+                                <button className='btn btn-link bottom-custom-link p-0' onClick={() => editarRhAction(rHId)}>
+                                  <FontAwesomeIcon className='icons-table-ds' icon={faPencilAlt} /><p className='margin-icons'>Editar</p>
                                 </button>
                               </div>
                             </td>

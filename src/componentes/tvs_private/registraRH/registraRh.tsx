@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IFormRHHandle, IGenericResponse, IPropsModal, IRecursoHumanoDto, IRegistraRhProps, IZoneProps } from '../../../models/IProps'
 
 
@@ -7,11 +7,21 @@ import { Cargando } from '../../tvs/loader/cargando';
 import { AuthServices } from '../../../services/authServices';
 import RegistraRhForm from './registraRhForm';
 
-const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
+const RegistraRh: React.FC<IRegistraRhProps> = ({ setRedirectZone, rHEdita }) => {
+
+    useEffect(() => {
+        console.log(rHEdita)
+        if (rHEdita) {
+            setEditaRh(true)
+        }
+    }, [])
+
+    const [editaRh, setEditaRh] = useState(false)
 
     const [cargando, setCargando] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
     const [modalOpen1, setModalOpen1] = useState(false)
+    const [modalOpen2, setModalOpen2] = useState(false)
     const [tipoModal, setTipoModal] = useState('')
     const [propsModalForm, setPropsModalForm] = useState<IPropsModal>({
         resultForm1: {},
@@ -21,7 +31,7 @@ const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
 
     const registraRhFormRef = useRef<IFormRHHandle>(null);
 
-    const registraRH = () => {
+    const actionRH = () => {
         let formValidado = [];
         let resultForm1 = null;
         if (registraRhFormRef.current) {
@@ -39,7 +49,11 @@ const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
                 resultForm3: []
             })
             setTipoModal('MODAL_RESUMEN_FORM')
-            setModalOpen(true)
+            if (!!rHEdita) {
+                setModalOpen2(true)
+            } else {
+                setModalOpen(true)
+            }
         } else {
             formValidado.splice(0, formValidado.length)
         }
@@ -80,6 +94,43 @@ const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
         }
     }
 
+    const actualizarRHService = async () => {
+        setModalOpen2(false)
+        setCargando(true)
+        const infoForm1: IRecursoHumanoDto = {
+            nombres: propsModalForm.resultForm1.prop1 || '',
+            apellidos: propsModalForm.resultForm1.prop0 || '',
+            fechaNacimiento: propsModalForm.resultForm1.prop2 || '',
+            numeroIdentificacion: propsModalForm.resultForm1.prop3 || '',
+            celular: propsModalForm.resultForm1.prop6 || '',
+            correoPersonal: propsModalForm.resultForm1.prop4 || '',
+            correoCorporativo: propsModalForm.resultForm1.prop5 || '',
+            perfilProfesional: propsModalForm.resultForm1.prop7 || '',
+        }
+        const body = {
+            "idRh": rHEdita.idRh,
+            "recursoHumano": infoForm1
+        }
+        const authServices = new AuthServices();
+        try {
+            const response: IGenericResponse = await authServices.requestPost(body, 18);
+            let tituloModal = 'Valla algo salió mal¡¡'
+            if (response.estado) {
+                tituloModal = '¡Actualización exitosa!'
+                resetForms()
+                ejecutaModalComponent1(tituloModal, response.mensaje, 'MODAL_CONTROL_1')
+            } else if (!!response.objeto) {
+                tituloModal = response.objeto
+                ejecutaModalComponent(tituloModal, response.mensaje, 'MODAL_CONTROL_1')
+            }
+            setCargando(false)
+        } catch (error) {
+            setCargando(false)
+            ejecutaModalComponent('Valla algo salió mal¡¡', 'No fue posible el registro de la información, contacte al administrador', 'MODAL_CONTROL_1')
+        }
+
+    }
+
     const resetForms = () => {
         if (registraRhFormRef.current) {
             registraRhFormRef.current.funcionHandle2()
@@ -89,6 +140,7 @@ const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
     const cancelaOperacionModal = () => {
         setTipoModal('')
         setModalOpen(false)
+        setModalOpen2(false)
     }
 
     const ejecutaModalComponent = (titulo: string, descripicion: string, tipoModal: string) => {
@@ -120,12 +172,22 @@ const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
     return (
         <>
             <div className='div-style-form'>
-                <RegistraRhForm ref={registraRhFormRef} />
+                <RegistraRhForm ref={registraRhFormRef} rHEdita={rHEdita} />
                 <hr />
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12" >
                         <div className='div-bottom-custom m-0'>
-                            <button className='btn btn-primary bottom-custom' onClick={() => registraRH()} >Registrar RH</button>
+                            {
+                                editaRh ?
+                                    <>
+                                        <button className='btn btn-primary bottom-custom' onClick={() => actionRH()} >Actualizar RH</button>
+                                    </>
+                                    :
+
+                                    <>
+                                        <button className='btn btn-primary bottom-custom' onClick={() => actionRH()} >Registrar RH</button>
+                                    </>
+                            }
                         </div>
                     </div>
                 </div>
@@ -137,8 +199,14 @@ const RegistraRh: React.FC<IRegistraRhProps> = ({setRedirectZone}) => {
                     <></>
             }
             {
+                modalOpen2 ?
+                    <Modal tipoModal={tipoModal} modalSi={() => { actualizarRHService() }} modalNo={() => { cancelaOperacionModal() }} propsModal={propsModalForm} />
+                    :
+                    <></>
+            }
+            {
                 modalOpen1 ?
-                    <Modal tipoModal={tipoModal} modalSi={() => {}} modalNo={() => { setRedirectZone('VIEW_LISTA_RH') }} propsModal={propsModalForm} />
+                    <Modal tipoModal={tipoModal} modalSi={() => { }} modalNo={() => { setRedirectZone('VIEW_LISTA_RH') }} propsModal={propsModalForm} />
                     :
                     <></>
             }

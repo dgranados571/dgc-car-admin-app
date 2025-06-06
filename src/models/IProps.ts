@@ -65,6 +65,7 @@ export interface IZoneAdminProps {
 export interface IListaRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
     setRHContract: React.Dispatch<React.SetStateAction<any>>;
+    setRHEdita: React.Dispatch<React.SetStateAction<any>>;
     setControlExecute: React.Dispatch<React.SetStateAction<boolean>>;
     controlExecute: boolean;
     setPaginacionLista: React.Dispatch<React.SetStateAction<any>>;
@@ -109,6 +110,11 @@ export interface IOtroSiProps {
 
 export interface IRegistraRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
+    rHEdita: any;
+}
+
+export interface IRegistraRhFormProps {
+    rHEdita: any;
 }
 
 export interface IContratoRhProps {

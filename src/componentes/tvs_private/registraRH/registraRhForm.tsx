@@ -1,9 +1,9 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import "react-datepicker/dist/react-datepicker.css";
-import { IFormRHHandle } from '../../../models/IProps';
+import { IFormRHHandle, IRegistraRhFormProps } from '../../../models/IProps';
 import logoSvg from '../../../logo.svg'
 
-const RegistraRhForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref) => {
+const RegistraRhForm: React.ForwardRefRenderFunction<IFormRHHandle, IRegistraRhFormProps> = ({ rHEdita }, ref) => {
 
     useImperativeHandle(ref, () => ({
         funcionHandle1() {
@@ -13,6 +13,24 @@ const RegistraRhForm: React.ForwardRefRenderFunction<IFormRHHandle> = ({ }, ref)
             return resetForm()
         }
     }))
+
+    useEffect(() => {
+        console.log('VALIDA RH FORM', !!rHEdita, rHEdita)
+        if (rHEdita) {
+            setFormEdit()
+        }
+    }, [])
+
+    const setFormEdit = () => {
+        setApellidos(rHEdita.recursoHumanoDto.apellidos)
+        setNombres(rHEdita.recursoHumanoDto.nombres)
+        setFechaNacimiento(rHEdita.recursoHumanoDto.fechaNacimiento)
+        setNumeroIdentificacion(rHEdita.recursoHumanoDto.numeroIdentificacion)
+        setCorreoPersonal(rHEdita.recursoHumanoDto.correoPersonal)
+        setCorreoCorporativo(rHEdita.recursoHumanoDto.correoCorporativo)
+        setCelular(rHEdita.recursoHumanoDto.celular)
+        setPerfilProfesional(rHEdita.recursoHumanoDto.perfilProfesional)
+    }
 
     const [apellidos, setApellidos] = useState('');
     const [nombres, setNombres] = useState('');
