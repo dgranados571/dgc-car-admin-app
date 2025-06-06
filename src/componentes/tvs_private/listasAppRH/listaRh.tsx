@@ -167,7 +167,9 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setC
                   <Paginador elementsPaginacion={paginacionLista} setElementsPaginacion={setPaginacionLista}
                     setExecuteConsultaList={setControlExecute} executeConsultaList={controlExecute} />
                 </div>
-                <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
+                <div className="col-12 col-sm-1 col-md-1 col-lg-2" >
+                  <p className="p-info-elementos-paginador">Total elementos {paginacionLista.totalElementos} </p>
+                </div>
               </div>
             </>
             :
