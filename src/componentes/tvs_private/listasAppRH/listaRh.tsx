@@ -166,8 +166,14 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract }) =>
                   </tbody>
                 </table>
               </div>
-              <Paginador elementsPaginacion={paginacionSolicitudes} setElementsPaginacion={setPaginacionSolicitudes}
-                setExecuteConsultaList={setExecuteConsultaList} executeConsultaList={executeConsultaList} />
+              <div className="row">
+                <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
+                <div className="col-12 col-sm-10 col-md-10 col-lg-8" >
+                  <Paginador elementsPaginacion={paginacionSolicitudes} setElementsPaginacion={setPaginacionSolicitudes}
+                    setExecuteConsultaList={setExecuteConsultaList} executeConsultaList={executeConsultaList} />
+                </div>
+                <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
+              </div>
             </>
             :
             <p className=''>No hay información</p>

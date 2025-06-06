@@ -3,6 +3,7 @@ import { IGenericResponse, IListaContratosRhProps } from '../../../models/IProps
 import { AuthServices } from '../../../services/authServices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { Paginador } from '../../tvs/paginacion/paginador'
 
 const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalComponent, setCargando, setRedirect, setRHContratoId, zonaConsulta, setControlExecute, controlExecute }) => {
 
@@ -14,6 +15,10 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         { value: 'RED_SALUD', label: 'Red Salud' },
         { value: 'SALUD_YOPAl', label: 'Salud Yopal' }
     ]
+
+    const [paginacionSolicitudes, setPaginacionSolicitudes] = useState(
+        { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
+    );
 
     const [contratoFiltro, setContratoFiltro] = useState('INITIAL')
     const [identificacionFiltro, setIdentificacionFiltro] = useState('')
@@ -31,13 +36,20 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         setCargando(true)
         const body = {
             "contratoFiltro": contratoFiltro,
-            "identificacionFiltro": identificacionFiltro
+            "identificacionFiltro": identificacionFiltro,
+            "elementosPorPagina": paginacionSolicitudes.elementosPorPagina,
+            "paginaActual": paginacionSolicitudes.paginaActual,
         }
         const authServices = new AuthServices();
         try {
             const response: IGenericResponse = await authServices.requestPost(body, 12);
+
             if (response.estado) {
-                setContratosRhList(response.objeto)
+                setContratosRhList(response.objeto.contratosRHList)
+                setPaginacionSolicitudes({
+                    ...paginacionSolicitudes,
+                    totalElementos: response.objeto.totalElementos
+                })
             } else {
                 ejecutaModalComponent('Valla algo salió mal¡¡', response.mensaje, 'MODAL_CONTROL_1')
             }
@@ -48,7 +60,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         }
     }
 
-    const detalleContrato = (rHContratoId: any) => {        
+    const detalleContrato = (rHContratoId: any) => {
         setRHContratoId(rHContratoId.idContratoRh)
         setRedirect('VISTA_DETALLE_CONTRATO_RH')
     }
@@ -186,6 +198,14 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                                         }
                                     </tbody>
                                 </table>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
+                                <div className="col-12 col-sm-10 col-md-10 col-lg-8" >
+                                    <Paginador elementsPaginacion={paginacionSolicitudes} setElementsPaginacion={setPaginacionSolicitudes}
+                                        setExecuteConsultaList={setControlExecute} executeConsultaList={controlExecute} />
+                                </div>
+                                <div className="col-12 col-sm-1 col-md-1 col-lg-2" ></div>
                             </div>
                         </>
                         :
