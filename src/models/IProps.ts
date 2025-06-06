@@ -9,7 +9,7 @@ export interface IFormRHHandle {
 
 export interface IContratoFormProps {
     editaContrato: boolean
-    rHContratoId?:any
+    rHContratoId?: any
 }
 
 export interface IMenuLateral {
@@ -64,11 +64,11 @@ export interface IZoneAdminProps {
 
 export interface IListaRhProps {
     setRedirectZone: React.Dispatch<React.SetStateAction<string>>;
-    setRHContract: React.Dispatch<React.SetStateAction<any>>; 
+    setRHContract: React.Dispatch<React.SetStateAction<any>>;
     setControlExecute: React.Dispatch<React.SetStateAction<boolean>>;
     controlExecute: boolean;
     setPaginacionLista: React.Dispatch<React.SetStateAction<any>>;
-    paginacionLista: any   
+    paginacionLista: any
 }
 
 export interface IListaContratosRhProps {
@@ -82,6 +82,8 @@ export interface IListaContratosRhProps {
     setPaginacionLista: React.Dispatch<React.SetStateAction<any>>;
     paginacionLista: any
 
+    setEstadoContratoFiltro: React.Dispatch<React.SetStateAction<string>>;
+    estadoContratoFiltro: string;
     setContratoFiltro: React.Dispatch<React.SetStateAction<string>>;
     contratoFiltro: string;
     setIdentificacionFiltro: React.Dispatch<React.SetStateAction<string>>;
@@ -92,16 +94,16 @@ export interface IListaContratosRhProps {
 
 export interface IDetalleContratoRhProps {
     ejecutaModalComponent: Function
-    rHContratoId:any
+    rHContratoId: any
     setRedirect: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IOtroSiPadreProps {
-    rHContratoId:any
+    rHContratoId: any
 }
 
 export interface IOtroSiProps {
-    rHContratoId:any
+    rHContratoId: any
     setTipoOtroSi: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -147,7 +149,7 @@ export interface IListasCursos {
 }
 
 export interface IListaContratosRhPadreProps {
-    zonaConsulta: string   
+    zonaConsulta: string
 }
 
 export interface IModalProps {

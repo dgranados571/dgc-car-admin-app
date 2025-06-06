@@ -25,6 +25,7 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
         { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
     );
 
+    const [estadoContratoFiltro, setEstadoContratoFiltro] = useState('INITIAL')
     const [contratoFiltro, setContratoFiltro] = useState('INITIAL')
     const [identificacionFiltro, setIdentificacionFiltro] = useState('')
 
@@ -38,7 +39,8 @@ const ListaContratosRhPadre: React.FC<IListaContratosRhPadreProps> = ({ zonaCons
             case 'VISTA_LISTA_CONTRATO_RH':
                 return (
                     <ListaContratosRh ejecutaModalComponent={ejecutaModalComponent} setCargando={setCargando} setRedirect={setRedirect} setRHContratoId={setRHContratoId} zonaConsulta={zonaConsulta}
-                        setContratoFiltro={setContratoFiltro} contratoFiltro={contratoFiltro} setIdentificacionFiltro={setIdentificacionFiltro} identificacionFiltro={identificacionFiltro}
+                        setEstadoContratoFiltro={setEstadoContratoFiltro} estadoContratoFiltro={estadoContratoFiltro} setContratoFiltro={setContratoFiltro} contratoFiltro={contratoFiltro}
+                        setIdentificacionFiltro={setIdentificacionFiltro} identificacionFiltro={identificacionFiltro}
                         setPaginacionLista={setPaginacionLista} paginacionLista={paginacionLista} setControlExecute={setControlExecute} controlExecute={controlExecute}
                     />
                 )

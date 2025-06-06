@@ -6,7 +6,7 @@ import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Paginador } from '../../tvs/paginacion/paginador'
 
 const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalComponent, setCargando, setRedirect, setRHContratoId, zonaConsulta, setControlExecute,
-    controlExecute, setContratoFiltro, setPaginacionLista, paginacionLista, contratoFiltro, setIdentificacionFiltro, identificacionFiltro
+    controlExecute, setPaginacionLista, paginacionLista, setEstadoContratoFiltro, estadoContratoFiltro, setContratoFiltro, contratoFiltro, setIdentificacionFiltro, identificacionFiltro
 }) => {
 
     const rolesPermitenEliminar = ['ROLE_ROOT']
@@ -16,6 +16,15 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
         { value: 'INITIAL', label: 'Seleccione' },
         { value: 'RED_SALUD', label: 'Red Salud' },
         { value: 'SALUD_YOPAl', label: 'Salud Yopal' }
+    ]
+
+    const estadosDecontratos = [
+        { value: 'INITIAL', label: 'Seleccione' },
+        { value: 'FINALIZADO', label: 'Finalizados' },
+        { value: 'POR_FINALIZAR', label: 'Por finalizar' },
+        { value: 'SIN_INICIAR', label: 'Sin iniciar' },
+        { value: 'VENCIDO', label: 'Vencidos' },
+        { value: 'VIGENTE', label: 'Vigentes' }
     ]
 
     const [contratosRhList, setContratosRhList] = useState<any[]>([])
@@ -30,6 +39,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
     const getRHContratosInfo = async () => {
         setCargando(true)
         const body = {
+            "estadoContratoFiltro": estadoContratoFiltro,
             "contratoFiltro": contratoFiltro,
             "identificacionFiltro": identificacionFiltro,
             "elementosPorPagina": paginacionLista.elementosPorPagina,
@@ -61,6 +71,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
     }
 
     const limpiarFiltros = () => {
+        setEstadoContratoFiltro('INITIAL')
         setContratoFiltro('INITIAL')
         setIdentificacionFiltro('')
         setPaginacionLista({
@@ -93,6 +104,20 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                 <div className="row mb-5">
                     <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                         <div className='div-form'>
+                            <p className='p-label-form'>Por estado de contrato: </p>
+                            <select value={estadoContratoFiltro} onChange={(e) => setEstadoContratoFiltro(e.target.value)} className='form-control' >
+                                {
+                                    estadosDecontratos.map((key, i) => {
+                                        return (
+                                            <option key={i} value={key.value}>{key.label}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+                        <div className='div-form'>
                             <p className='p-label-form'>Por contrato: </p>
                             <select value={contratoFiltro} onChange={(e) => setContratoFiltro(e.target.value)} className='form-control' >
                                 {
@@ -111,6 +136,7 @@ const ListaContratosRh: React.FC<IListaContratosRhProps> = ({ ejecutaModalCompon
                             <input value={identificacionFiltro} onChange={(e) => setIdentificacionFiltro(e.target.value)} type="text" className='form-control' placeholder='' autoComplete='off' />
                         </div>
                     </div>
+                    <div className="col-12 col-sm-12 col-md-6 col-lg-6" ></div>
                     <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
                         <p className='p-info-filtros'>Para reiniciar la búsqueda, bastará con limpiar los filtros*</p>
                     </div>
