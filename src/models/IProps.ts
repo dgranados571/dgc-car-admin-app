@@ -70,6 +70,9 @@ export interface IListaRhProps {
     controlExecute: boolean;
     setPaginacionLista: React.Dispatch<React.SetStateAction<any>>;
     paginacionLista: any
+
+    setIdentificacionFiltro: React.Dispatch<React.SetStateAction<string>>;
+    identificacionFiltro: string;
 }
 
 export interface IListaContratosRhProps {

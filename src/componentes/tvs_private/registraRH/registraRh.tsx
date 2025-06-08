@@ -10,7 +10,6 @@ import RegistraRhForm from './registraRhForm';
 const RegistraRh: React.FC<IRegistraRhProps> = ({ setRedirectZone, rHEdita }) => {
 
     useEffect(() => {
-        console.log(rHEdita)
         if (rHEdita) {
             setEditaRh(true)
         }

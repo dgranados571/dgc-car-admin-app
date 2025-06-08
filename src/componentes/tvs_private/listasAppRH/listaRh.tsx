@@ -7,7 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeFork, faEye, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { Paginador } from '../../tvs/paginacion/paginador'
 
-const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setRHEdita, setControlExecute, controlExecute, setPaginacionLista, paginacionLista }) => {
+const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setRHEdita, setControlExecute, controlExecute, setPaginacionLista, paginacionLista,
+  setIdentificacionFiltro, identificacionFiltro
+}) => {
 
   const [cargando, setCargando] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
@@ -27,6 +29,7 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setR
   const getRHsInfo = async () => {
     setCargando(true)
     const body = {
+      "identificacionFiltro": identificacionFiltro,
       "elementosPorPagina": paginacionLista.elementosPorPagina,
       "paginaActual": paginacionLista.paginaActual,
     }
@@ -99,9 +102,46 @@ const ListaRh: React.FC<IListaRhProps> = ({ setRedirectZone, setRHContract, setR
     setModalOpen(false)
   }
 
+  const limpiarFiltros = () => {
+    setIdentificacionFiltro('')
+    setPaginacionLista({
+      ...paginacionLista,
+      paginaActual: '1'
+    })
+    setControlExecute(!controlExecute)
+  }
+
+  const ejecutaFiltros = () => {
+    setPaginacionLista({
+      ...paginacionLista,
+      paginaActual: '1'
+    })
+    setControlExecute(!controlExecute)
+  }
+
   return (
     <>
       <div className='div-style-form'>
+        <h4>Aplicar filtros: </h4>
+        <div className="row mb-5">
+          <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+            <div className='div-form'>
+              <p className='p-label-form'>Por No. identificación </p>
+              <input value={identificacionFiltro} onChange={(e) => setIdentificacionFiltro(e.target.value)} type="text" className='form-control' placeholder='' autoComplete='off' />
+            </div>
+          </div>
+          <div className="col-12 col-sm-12 col-md-6 col-lg-6" ></div>
+          <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+            <p className='p-info-filtros'>Para reiniciar la búsqueda, bastará con limpiar los filtros*</p>
+          </div>
+          <div className="col-12 col-sm-12 col-md-6 col-lg-6" >
+            <div className='div-bottom-custom'>
+              <button className='btn btn-primary bottom-custom' onClick={() => { ejecutaFiltros() }} >Buscar</button>
+              <button className='btn btn-secondary bottom-custom-secondary' onClick={() => limpiarFiltros()} >Limpiar filtros</button>
+            </div>
+          </div>
+        </div>
+        <hr />
         {
           rHList.length > 0 ?
             <>

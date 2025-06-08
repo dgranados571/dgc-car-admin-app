@@ -15,6 +15,8 @@ const GestionRh = () => {
         { totalElementos: '', elementosPorPagina: '20', paginaActual: '1' }
     );
 
+    const [identificacionFiltro, setIdentificacionFiltro] = useState('')
+
     const [rHEdita, setRHEdita] = useState<any>()
     const [rHContract, setRHContract] = useState<any>({})
 
@@ -23,7 +25,7 @@ const GestionRh = () => {
             case 'VIEW_LISTA_RH':
                 return (
                     <ListaRh setRedirectZone={setRedirectZone} setRHContract={setRHContract} setRHEdita={setRHEdita} setControlExecute={setControlExecute} controlExecute={controlExecute}
-                        setPaginacionLista={setPaginacionLista} paginacionLista={paginacionLista} />
+                        setPaginacionLista={setPaginacionLista} paginacionLista={paginacionLista} setIdentificacionFiltro={setIdentificacionFiltro} identificacionFiltro= {identificacionFiltro} />
                 )
             case 'VIEW_REGISTRA_RH':
                 return (
